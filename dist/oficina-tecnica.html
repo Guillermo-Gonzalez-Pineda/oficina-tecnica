@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oficina Técnica — Apuntes y Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#e9edf1;
+  --surface:#ffffff;
+  --ink:#15212e;
+  --ink-soft:#52657a;
+  --line:#cdd6df;
+  --line-soft:#e1e7ed;
+  --blue:#1c4e7f;
+  --blue-deep:#143a5e;
+  --accent:#df8a2a;
+  --accent-soft:#fbeedd;
+  --ok:#2e7d54;
+  --ok-soft:#e6f3ec;
+  --bad:#bd3a2c;
+  --bad-soft:#fbe9e7;
+  --shadow:0 1px 2px rgba(20,33,46,.06),0 8px 24px rgba(20,33,46,.06);
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:"IBM Plex Mono",monospace}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;margin:0;line-height:1.18}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--blue-deep);color:#fff;
+  border-bottom:2px solid #0d2840;
+}
+.topbar-grid{
+  position:absolute;inset:0;opacity:.16;pointer-events:none;
+  background-image:linear-gradient(#ffffff22 1px,transparent 1px),linear-gradient(90deg,#ffffff22 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.topbar-in{
+  position:relative;max-width:1180px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand .tag{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;
+  border:1px solid #ffffff55;border-radius:6px;padding:4px 7px;color:#cfe0f0;white-space:nowrap;
+}
+.brand h1{font-size:19px;font-weight:600;letter-spacing:.01em}
+.brand .sub{font-size:11px;color:#9fbdd8;font-family:"IBM Plex Mono",monospace;letter-spacing:.08em;margin-top:2px}
+.spacer{flex:1}
+.btn{
+  font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:14px;
+  border:none;border-radius:9px;padding:9px 15px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;transition:transform .08s ease,background .15s ease,box-shadow .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-accent{background:var(--accent);color:#3a2407}
+.btn-accent:hover{background:#e89a45}
+.btn-ghost{background:#ffffff1a;color:#fff;border:1px solid #ffffff40}
+.btn-ghost:hover{background:#ffffff2e}
+.scorepill{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;color:#cfe0f0;
+  display:flex;align-items:center;gap:8px;
+}
+.scorepill b{color:#fff;font-weight:600}
+.menu-toggle{display:none}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 60px;display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+
+/* ---------- sidebar / index ---------- */
+.index{position:sticky;top:84px}
+.index-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.index-head{padding:14px 16px;border-bottom:1px solid var(--line-soft)}
+.index-head .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;color:var(--ink-soft)}
+.index-head h2{font-size:15px;margin-top:3px}
+.parte{border-bottom:1px solid var(--line-soft)}
+.parte:last-child{border-bottom:none}
+.parte-h{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:11px 16px;display:flex;align-items:center;gap:10px;color:var(--ink);
+}
+.parte-h:hover{background:var(--line-soft)}
+.parte-tag{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.05em;
+  background:var(--blue);color:#fff;border-radius:5px;padding:3px 6px;flex-shrink:0;
+}
+.parte-h .pt{font-family:"Space Grotesk";font-weight:600;font-size:13.5px;flex:1;line-height:1.25}
+.parte-h .chev{color:var(--ink-soft);transition:transform .2s ease;flex-shrink:0}
+.parte.open .chev{transform:rotate(90deg)}
+.temas{display:none;padding:2px 8px 8px}
+.parte.open .temas{display:block}
+.tema-link{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:8px 10px 8px 12px;border-radius:8px;display:flex;gap:9px;align-items:baseline;color:var(--ink-soft);
+  font-family:"Inter";font-size:13px;line-height:1.35;
+}
+.tema-link:hover{background:var(--accent-soft);color:var(--ink)}
+.tema-link.active{background:var(--blue);color:#fff}
+.tema-link.active .tnum{color:#bcd6ee}
+.tema-link .tnum{font-family:"IBM Plex Mono";font-size:11px;color:var(--blue);flex-shrink:0;min-width:24px}
+.tema-link .done{margin-left:auto;font-size:11px;flex-shrink:0;opacity:.85}
+
+/* ---------- main panel ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);min-height:60vh;overflow:hidden}
+
+/* hero (welcome) */
+.hero{padding:0}
+.hero-top{
+  position:relative;background:var(--blue-deep);color:#fff;padding:34px 32px 30px;overflow:hidden;
+}
+.hero-grid{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(#ffffff22 1px,transparent 1px),linear-gradient(90deg,#ffffff22 1px,transparent 1px);background-size:26px 26px}
+.hero-top .eyebrow{position:relative;font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.22em;color:#9fbdd8}
+.hero-top h2{position:relative;font-size:clamp(26px,4vw,38px);font-weight:700;margin-top:10px;letter-spacing:-.01em}
+.hero-top p{position:relative;color:#cfe0f0;max-width:54ch;margin-top:10px;font-size:14.5px}
+.hero-body{padding:26px 32px 32px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+.step{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fbfcfd}
+.step .n{font-family:"IBM Plex Mono";font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.05em}
+.step h4{font-size:15px;margin:8px 0 5px}
+.step p{margin:0;font-size:13px;color:var(--ink-soft)}
+.method{margin-top:22px;border-left:3px solid var(--accent);background:var(--accent-soft);padding:14px 16px;border-radius:0 10px 10px 0}
+.method h4{font-size:14px;margin-bottom:5px}
+.method p{margin:0;font-size:13.5px;color:#5a4426}
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+.stat{flex:1;min-width:120px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;background:#fbfcfd}
+.stat .v{font-family:"Space Grotesk";font-size:26px;font-weight:700;color:var(--blue)}
+.stat .l{font-family:"IBM Plex Mono";font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft);margin-top:2px}
+
+/* tema header */
+.tema-head{padding:26px 32px 0}
+.tema-eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tema-eyebrow .ref{font-family:"IBM Plex Mono";font-size:11px;font-weight:600;letter-spacing:.06em;background:var(--blue);color:#fff;border-radius:6px;padding:4px 8px}
+.tema-eyebrow .pname{font-family:"IBM Plex Mono";font-size:11px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase}
+.tema-head h2{font-size:clamp(22px,3vw,29px);font-weight:700;margin-top:12px;letter-spacing:-.01em}
+.tema-head .resumen{color:var(--ink-soft);margin-top:8px;font-size:14.5px;max-width:62ch}
+.tabs{display:flex;gap:6px;margin-top:20px;border-bottom:1px solid var(--line);padding:0 32px}
+.tema-head + .tabs{margin-top:20px}
+.tab{
+  font-family:"Space Grotesk";font-weight:600;font-size:14px;background:none;border:none;cursor:pointer;
+  padding:11px 4px;margin-right:18px;color:var(--ink-soft);border-bottom:2.5px solid transparent;transition:color .15s;
+}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--blue);border-bottom-color:var(--accent)}
+.tab .cnt{font-family:"IBM Plex Mono";font-size:11px;opacity:.7;margin-left:4px}
+.tab-body{padding:24px 32px 34px}
+
+/* ---------- notes ---------- */
+.bloque{margin-bottom:22px}
+.bloque:last-child{margin-bottom:0}
+.bloque-t{font-size:15px;font-weight:600;color:var(--blue-deep);display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.bloque-t::before{content:"";width:7px;height:7px;background:var(--accent);border-radius:2px;flex-shrink:0;transform:rotate(45deg)}
+.bloque ul{list-style:none;margin:0;padding:0}
+.bloque li{position:relative;padding:5px 0 5px 18px;font-size:14px;border-bottom:1px solid var(--line-soft)}
+.bloque li:last-child{border-bottom:none}
+.bloque li::before{content:"";position:absolute;left:2px;top:13px;width:5px;height:5px;border-radius:50%;background:var(--line)}
+.bloque li.kv::before{background:var(--blue)}
+.bloque li b{color:var(--ink);font-weight:600}
+.bloque li .term{color:var(--blue);font-weight:600}
+.formulas{margin-top:8px;border:1px dashed var(--blue);border-radius:12px;background:#f5f9fc;padding:14px 16px}
+.formulas .ft{font-family:"IBM Plex Mono";font-size:10.5px;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
+.formulas .f{font-family:"IBM Plex Mono";font-size:14px;color:var(--ink);padding:6px 0;border-bottom:1px solid #dce8f1}
+.formulas .f:last-child{border-bottom:none}
+.note-cta{margin-top:24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.note-cta span{font-size:13px;color:var(--ink-soft)}
+
+/* ---------- quiz ---------- */
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.qcount{font-family:"IBM Plex Mono";font-size:12px;color:var(--ink-soft);letter-spacing:.05em}
+.qcount b{color:var(--blue);font-weight:600}
+.progress{height:6px;background:var(--line-soft);border-radius:99px;overflow:hidden;margin-bottom:22px}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+.qtext{font-family:"Space Grotesk";font-size:18px;font-weight:600;line-height:1.35;margin-bottom:18px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:11px;
+  padding:13px 15px;cursor:pointer;font-family:"Inter";font-size:14.5px;color:var(--ink);
+  display:flex;gap:12px;align-items:flex-start;transition:border-color .12s,background .12s,transform .08s;
+}
+.opt:hover:not(:disabled){border-color:var(--blue);background:#f6f9fc}
+.opt:active:not(:disabled){transform:translateY(1px)}
+.opt .key{font-family:"IBM Plex Mono";font-size:12.5px;font-weight:600;color:var(--blue);border:1px solid var(--line);border-radius:6px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt:disabled{cursor:default}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.correct .key{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .key{background:var(--bad);color:#fff;border-color:var(--bad)}
+.opt.dim{opacity:.55}
+.explain{margin-top:16px;border-radius:11px;padding:14px 16px;font-size:14px;display:none;animation:fade .25s ease}
+.explain.show{display:block}
+.explain.good{background:var(--ok-soft);border-left:3px solid var(--ok)}
+.explain.bad{background:var(--bad-soft);border-left:3px solid var(--bad)}
+.explain .lbl{font-family:"IBM Plex Mono";font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px}
+.explain.good .lbl{color:var(--ok)}
+.explain.bad .lbl{color:var(--bad)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.quiz-foot{margin-top:22px;display:flex;justify-content:flex-end;gap:10px}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-deep)}
+.btn-line{background:var(--surface);color:var(--blue);border:1.5px solid var(--line)}
+.btn-line:hover{border-color:var(--blue)}
+
+/* results */
+.results{text-align:center;padding:18px 6px}
+.result-ring{width:128px;height:128px;margin:0 auto 18px;position:relative}
+.result-ring svg{transform:rotate(-90deg)}
+.result-ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.result-ring .pct b{font-family:"Space Grotesk";font-size:30px;font-weight:700;line-height:1}
+.result-ring .pct small{font-family:"IBM Plex Mono";font-size:10px;letter-spacing:.1em;color:var(--ink-soft);margin-top:2px}
+.results h3{font-size:21px;margin-bottom:6px}
+.results .msg{color:var(--ink-soft);font-size:14.5px;max-width:46ch;margin:0 auto 22px}
+.results .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.empty{padding:60px 20px;text-align:center;color:var(--ink-soft)}
+
+/* ---------- responsive ---------- */
+@media(max-width:880px){
+  .wrap{grid-template-columns:1fr;padding:16px 14px 50px}
+  .index{position:static}
+  .index{display:none}
+  .index.open{display:block}
+  .menu-toggle{display:inline-flex}
+  .steps{grid-template-columns:1fr}
+  .tema-head,.tab-body,.tabs,.hero-body,.hero-top{padding-left:20px;padding-right:20px}
+  .topbar-in{padding:12px 14px}
+  .brand h1{font-size:17px}
+  .scorepill{display:none}
+}
+@media(max-width:480px){
+  .quiz-foot{flex-direction:column}
+  .quiz-foot .btn{width:100%;justify-content:center}
+}
+*:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-grid"></div>
+  <div class="topbar-in">
+    <button class="btn btn-ghost menu-toggle" id="menuBtn" aria-label="Índice">☰</button>
+    <div class="brand">
+      <span class="tag">OT</span>
+      <div>
+        <h1>Oficina Técnica</h1>
+        <div class="sub">APUNTES · TEST · EXAMEN</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="scorepill">PROGRESO <b id="globalDone">0</b>/<b id="globalTotal">0</b> temas</div>
+    <button class="btn btn-accent" id="examBtn">Examen completo</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <aside class="index" id="indexPanel">
+    <div class="index-card">
+      <div class="index-head">
+        <div class="eyebrow">ÍNDICE DEL TEMARIO</div>
+        <h2>4 partes · 13 temas</h2>
+      </div>
+      <div id="indexList"></div>
+    </div>
+  </aside>
+
+  <main class="panel" id="panel"><!-- renderizado por JS --></main>
+</div>
+
+<script>window.__OT_DATA__={"temario":{"partes":[{"id":"p1","tag":"P-I","titulo":"Gestión y desarrollo de proyectos industriales","temas":[{"id":"p1t1","num":"1","titulo":"Metodología de proyectos","resumen":"Qué es un proyecto industrial, sus tipos y características, la Oficina Técnica, las fases y la metodología BIM.","bloques":[{"t":"1.1 · ¿Qué es un proyecto?","puntos":[{"termino":"Definición clásica","definicion":"conjunto de escritos, cálculos y dibujos que dan idea de cómo ha de ser una obra de ingeniería."},{"termino":"Cleland y King","definicion":"combinación de recursos humanos y no humanos en una organización temporal para un propósito determinado."},"Crea un resultado ÚNICO: tangible (bien) o intangible (servicio). Trabajo único, no repetitivo."]},{"t":"1.2–1.3 · Proyecto industrial y tipos","puntos":[{"termino":"Proyecto industrial","definicion":"integra y coordina recursos, con planificación y programación temporal, para implementar industrialmente una idea."},"Tipos: grandes proyectos de inversión · instalaciones y plantas · líneas y procesos de producción · máquinas, equipos y elementos."]},{"t":"1.4 · Las 3 características","puntos":[{"termino":"Complejidad","definicion":"muchas temáticas, alta inversión, mucho tiempo."},{"termino":"Integralidad","definicion":"engloba todas las etapas; termina al acabar la vida útil."},{"termino":"Multidisciplinaridad","definicion":"obliga a equipos interdisciplinares."}]},{"t":"1.5 · Proyecto vs. operación","puntos":[{"termino":"Operación","definicion":"actividades repetitivas; busca la eficacia organizativa."},{"termino":"Proyecto","definicion":"actividades nuevas (con riesgo) para un resultado único en un tiempo dado."}]},{"t":"1.6 · Oficina Técnica (OT): tipos por control","puntos":[{"termino":"Consultiva","definicion":"almacena datos de proyectos anteriores. Control REDUCIDO."},{"termino":"De control","definicion":"soporte a la dirección con exigencias de obligado cumplimiento. Control MEDIO."},{"termino":"Directiva","definicion":"asume todas las funciones de dirección. Control PLENO."},"El Director de Proyecto persigue objetivos concretos; la OT, objetivos generales optimizando recursos compartidos."]},{"t":"1.7–1.8 · Fases y BIM","puntos":["Fases: Inicio (viabilidad) → Planificación → Ejecución → Control → Cierre.",{"termino":"BIM","definicion":"metodología colaborativa que centraliza la documentación en un modelo digital 3D con todos los datos (tiempos, costes…)."}]}]},{"id":"p1t2","num":"2","titulo":"Dirección integrada del proyecto","resumen":"El Director de Proyecto, los objetivos, la oferta, la planificación temporal (Gantt, PERT/CPM) y el cierre.","bloques":[{"t":"2.1–2.2 · Director y objetivos","puntos":["El Director de Proyecto no es solo coordinador: decide, manda y dirige el equipo hacia los objetivos.",{"termino":"Calidad","definicion":"resultado satisfactorio."},{"termino":"Plazos","definicion":"cumplir el límite de plazo."},{"termino":"Coste","definicion":"ajustarse al presupuesto pactado."}]},{"t":"2.3–2.5 · Viabilidad y oferta","puntos":[{"termino":"Estudio de viabilidad","definicion":"técnica, económica y financiera; deduce el precio y el margen antes de ofertar."},"La oferta tiene 4 partes: introducción, oferta técnica, de gestión y económica.","En la introducción, el ALCANCE describe lo que NO forma parte del proyecto.","Revisión de la oferta (tras la adjudicación): detectar fallos/inconsistencias, comprobar la correspondencia contrato–oferta y verificar que se dispone de los medios y recursos."]},{"t":"2.6–2.8 · Planificación temporal","puntos":[{"termino":"Diagrama de Gantt","definicion":"barras a escala con fechas de inicio/fin. Ventaja: muy visual. Inconveniente: NO sirve en proyectos complejos (no ve conexiones cruzadas)."},{"termino":"Métodos de grafos/redes","definicion":"para proyectos complejos: CPM (camino crítico) y PERT (con probabilidad). Otros: ROY, ERT, VERT."},"La duración de una actividad depende de tres factores: su complejidad, el esfuerzo requerido y los recursos utilizados."]},{"t":"2.9–2.11 · Ejecución, control y cierre","puntos":["Decisiones: oportunas, correctas y pertinentes; siempre escritas y firmadas.","Tipos de control: de calidad, de plazos y de costes.",{"termino":"Cierre","definicion":"el cliente firma el Acta de recepción final; se redacta el Informe de cierre (económico + situación final)."},"El cierre tiene 3 subprocesos: verificación y comprobación (pruebas de funcionamiento), cierre administrativo (firma/aprobación) y cierre del contrato.","Concluido el proyecto se analizan los resultados: diagnóstico del funcionamiento, balance económico y actuaciones correctivas para el futuro."]}]},{"id":"p1t3","num":"3","titulo":"Documentación técnica para tramitación legal","resumen":"Anteproyecto, UNE 157001, documentos del proyecto, las fórmulas del presupuesto (PEM/PEC/PAC) y los estudios con entidad propia.","bloques":[{"t":"3.1 · Anteproyecto y agentes","puntos":[{"termino":"Anteproyecto","definicion":"primera etapa; objetivos generales, soluciones, planos a gran escala y costes aproximados, sin detalle."},{"termino":"UNE 157001:2014","definicion":"norma que establece los documentos básicos de un proyecto."},{"termino":"Director Facultativo","definicion":"tras firmar el proyecto, dirige la obra y es árbitro entre Promotor (encarga) y Contratista (construye)."}]},{"t":"3.2 · Documentos del proyecto","puntos":["Básicos: Memoria (con Anexos), Pliego de Condiciones, Planos, Mediciones y Presupuesto.","NO vinculantes: Memoria, Mediciones y Presupuesto. (El Pliego y los Planos SÍ vinculan.)",{"termino":"Pliego de condiciones","definicion":"condiciones, equipos, materiales y forma de ejecutar; debe ser estricto."},{"termino":"Planos","definicion":"documento más utilizado; siguen las normas UNE de dibujo técnico."},"Vinculantes para el CONTRATISTA y, en lo que le corresponda, para el Promotor/Propiedad.","Si la Memoria no indica el orden de prioridad, el documento de referencia principal son los PLANOS.","Si hay contradicción entre presupuesto general, mediciones y precios → manda el CUADRO DE PRECIOS UNITARIOS."]},{"t":"Mediciones y Presupuesto","puntos":["Coste de la unidad de obra = costes directos (CD) + costes indirectos (CI).","PEM (Ejecución Material) = ΣCD + ΣCI.","PEC (por Contrata) = PEM + CG (costes generales) + Bi (beneficio industrial).","PAC (precio que abona el cliente) = PEC + IVA."]},{"t":"3.3 · Estudios con entidad propia","puntos":[{"termino":"E. de Seguridad y Salud (RD 1627/1997)","definicion":"obligatorio si PEC ≥ 450.000 €, o duración > 30 días con > 20 trabajadores simultáneos, o mano de obra > 500 jornadas, u obras especiales."},{"termino":"E. de Impacto Ambiental (Ley 21/2013)","definicion":"EIA Ordinaria → Declaración de Impacto Ambiental; EIA Simplificada → Informe de Impacto Ambiental."},"El Estudio de Seguridad y Salud NO basta para empezar la obra: cada contratista redacta un Plan de Seguridad y Salud, aprobado por la Dirección Facultativa o el Coordinador de Seguridad.",{"termino":"Coordinador de seguridad y salud (ejecución)","definicion":"lo designa el Promotor/Propiedad; denominación completa: «Coordinador en materia de seguridad y salud durante la ejecución del proyecto»; se integra en la Dirección Facultativa."},"El Estudio de Impacto Ambiental lo exigen los Ayuntamientos (que lo trasladan a las Agencias de Medio Ambiente)."]}],"formulas":["Coste Ud. de obra = CD + CI","PEM = ΣCD + ΣCI","PEC = PEM + CG + Bi","PAC = PEC + IVA"]},{"id":"p1t4","num":"4","titulo":"Legislación y tramitación legal","resumen":"Atribuciones profesionales, tipos de licencias, colegios y visado, ayuntamientos y registros industriales.","bloques":[{"t":"4.2 · Atribuciones profesionales","puntos":[{"termino":"Ley 12/1986 y Ley 33/1992","definicion":"Arquitectos e Ingenieros Técnicos tienen plenas facultades en su especialidad: redactar y firmar proyectos, dirigir, mediciones, tasaciones, docencia…"}]},{"t":"4.3 · Tipos de licencias","puntos":["De la Comunidad Autónoma (Dir. Gral. de Industria): Registro Industrial y Registro de Actividades de Seguridad Industrial.","Municipales (Ayuntamiento): licencias de obra y de legalización de actividades (apertura). En Madrid se unifican en la Licencia Urbanística."]},{"t":"4.4 · Colegios y visado","puntos":[{"termino":"Visado","definicion":"comprueba la identidad/habilitación del autor y la corrección formal de la documentación; el Colegio es responsable subsidiario de los daños."},{"termino":"RD 1000/2012","definicion":"el visado es obligatorio solo en ciertos proyectos: edificación, demoliciones, voladuras, explosivos, pirotecnia, minería…"},"Fines esenciales de los Colegios (Ley 2/1974): ordenación del ejercicio, representación institucional, defensa de los colegiados y protección de consumidores/usuarios (además de evitar el intrusismo)."]},{"t":"4.5–4.8 · Ayuntamientos y licencias","puntos":["Normativa municipal: Plan de Ordenación Urbana y Ordenanzas Municipales.",{"termino":"RD-Ley 19/2012","definicion":"sustituye la licencia municipal previa por una Declaración Responsable (con inspección posterior)."},"Actividades (Madrid): Inocuas vs. Calificadas (molestas, insalubres, nocivas, peligrosas).","Primera ocupación: la obra coincide con la licencia de obra. Funcionamiento: equipos/montajes cumplen la licencia de actividad."]},{"t":"4.9 · Registros industriales","puntos":[{"termino":"EICI / OCA","definicion":"entidades privadas que revisan el proyecto e inspeccionan la instalación para su registro."}]},{"t":"4.10 · Legislación industrial — cinco grandes grupos","puntos":["Seguridad e higiene.","Medio ambiente.","Infraestructura y edificación.","Instalaciones mecánicas.","Instalaciones eléctricas."]}]}]},{"id":"p2","tag":"P-II","titulo":"Proyectos de diseño y fabricación industrial","temas":[{"id":"p2t1","num":"1","titulo":"Diseño y desarrollo de productos","resumen":"Investigación de mercado, QFD, previsión de la demanda, el proceso de diseño, el DFM y la ingeniería concurrente.","bloques":[{"t":"1.1 · Investigación de mercado","puntos":["Usa métodos estadísticos para deducir las necesidades del consumidor y analizar el potencial de mercado antes de lanzar.","Fases: situación actual → planificar investigación → reunir datos → análisis → informe."]},{"t":"1.2 · QFD (Despliegue funcional de la calidad)","puntos":[{"termino":"QFD","definicion":"convierte las necesidades del cliente (QUEs) en especificaciones técnicas (COMOs)."},"Se plasma en la Casa de la Calidad, que además compara con la competencia."]},{"t":"1.3 · Previsión de la demanda","puntos":[{"termino":"Cualitativas","definicion":"basadas en experiencia e intuición."},{"termino":"Cuantitativas","definicion":"proyección matemática: promedio móvil, promedio móvil ponderado, alisamiento exponencial, ajuste por mínimos cuadrados."},"Error de previsión: e = F − D (F pronosticada, D real).","El alisamiento exponencial da más peso a lo reciente; ideal a corto plazo (responde a la tendencia, no al ruido).","Medidas del error (n periodos): Error Promedio EP = Σe/n; Error Absoluto Promedio EAP = Σ|e|/n; Error Cuadrático Promedio ECP = Σe²/n; Desviación típica DTE = √(Σe²/(n−1)).","Se elige la constante de alisamiento α que da MENOR error absoluto promedio (EAP)."]},{"t":"1.4–1.5 · Diseño y DFM","puntos":["Fases del diseño: preliminar → detalle → análisis y selección → prototipos.",{"termino":"DFM (Design for Manufacturing)","definicion":"adapta el producto a la fabricación: menos piezas, normalizadas, tolerancias amplias, pieza base inferior."},{"termino":"Síndrome del muro","definicion":"falta de comunicación entre diseño y fabricación; se resuelve con trabajo interdisciplinar."},{"termino":"Ingeniería concurrente","definicion":"todos los implicados trabajan SIMULTÁNEAMENTE → menor time-to-market; apoyo CAD-CAM."}]}],"formulas":["Error de previsión: e = F − D","Alisamiento exponencial: F(t+1) = F(t) + α·(D(t) − F(t))","EAP = Σ|e| / n   ·   ECP = Σe² / n   ·   DTE = √(Σe²/(n−1))"]},{"id":"p2t2","num":"2","titulo":"Elección de la tecnología del proceso","resumen":"Tipos de fabricación, células por tecnología de grupos y el equilibrado de cadenas de montaje.","bloques":[{"t":"2.1 · Tipos de fabricación","puntos":[{"termino":"Taller (job-shop)","definicion":"mucha variedad, poco volumen; máquinas generales por funciones; MO cualificada; costes fijos BAJOS y variables ALTOS; baja productividad."},{"termino":"Serie","definicion":"gran volumen, poca variedad; puestos en secuencia; costes fijos ALTOS y variables BAJOS; alta productividad. Continua (papel) o línea de montaje (coches)."},{"termino":"Por lotes","definicion":"intermedio; variedad con demanda estable; se reconfigura por artículo. Más productivo que el taller."},{"termino":"Flexible (células)","definicion":"piezas en familias; máquinas en células en U; un operario atiende varias máquinas."}]},{"t":"2.2 · Células por tecnología de grupos","puntos":["Agrupa piezas similares en familias y máquinas en células (cambios mínimos de configuración).",{"termino":"p (% de efectividad)","definicion":"umbral para unir una máquina a un grupo (típico 0,5). p alto → muchos grupos pequeños (más restrictivo); p bajo → pocos grupos grandes."},"Pasos: matriz de incidencia → relaciones máquina-máquina → ordenarlas → formar grupos comparando MRC con MTV."]},{"t":"2.4 · Equilibrado de cadenas","puntos":["Objetivo: igualar el tiempo de las estaciones obteniendo la producción deseada.","Tiempo de ciclo máximo: Tcm = Tdd / Pd.","Nº mínimo teórico de estaciones = Σ tiempos de tareas / Tcm.","Saturación de una estación: Si = (tesi / tc) × 100.","Equilibrado en cadena de FABRICACIÓN: con cambios mecánicos y de ingeniería. En cadena de MONTAJE: modificando la asignación de tareas.","Método heurístico habitual: el de la «tarea de mayor tiempo» (se asignan primero las tareas más largas que sean viables)."]}],"formulas":["Tcm = Tdd / Pd","Nº mín. estaciones = Σti / Tcm","Eficacia = Σti / (Nef · Tc)","Si = (tesi / tc) · 100"]},{"id":"p2t3","num":"3","titulo":"Proyecto de distribución en planta","resumen":"Objetivos de la distribución en planta, enfoques y el método cualitativo de la red nodal.","bloques":[{"t":"3.1 · Objetivos","puntos":[{"termino":"Distribución en planta (DP)","definicion":"disposición física de equipos e instalaciones; de naturaleza dinámica (se adapta con el tiempo)."},"Objetivos: integración de factores · distancias mínimas · flexibilidad · uso efectivo del espacio (3D) · seguridad del personal."]},{"t":"3.2 · Enfoques","puntos":["Instinto/intuición · distribuciones existentes · flujo de materiales · métodos cualitativos.","El método del flujo de materiales es típico en industrias de proceso."]},{"t":"3.3 · Método cualitativo: red nodal","puntos":["Pasos: área de cada departamento → tabla de relaciones (importancia de cercanía) → red nodal → tabla de evaluación.",{"termino":"Red nodal","definicion":"se colocan los nodos con el mínimo de líneas cruzadas; el de mayor valor va al centro."},"Medida de cercanía = distancia rectilínea (bloques) × valor de la relación. La mejor red es la de MENOR valor total."]}]}]},{"id":"p3","tag":"P-III","titulo":"Proyectos para mejorar la producción industrial","temas":[{"id":"p3t1","num":"1","titulo":"Gestión y control de la calidad industrial","resumen":"Costes de la calidad, normas ISO, la Gestión de Calidad Total (PDCA, Seis Sigma, JIT, Taguchi) y sus herramientas.","bloques":[{"t":"1.2 · Costes de la calidad","puntos":[{"termino":"Prevención","definicion":"reducir defectos antes de producir."},{"termino":"Evaluación/tasación","definicion":"verificar productos y procesos."},{"termino":"Fallos internos","definicion":"defectos detectados antes de vender (reproceso, desecho)."},{"termino":"Fallos externos","definicion":"defectos que llegan al cliente (devoluciones, pérdida de clientes)."},"Crosby: lo que cuesta dinero es la NO calidad (no hacerlo bien a la primera)."]},{"t":"1.3 · Normas ISO","puntos":[{"termino":"ISO 9000","definicion":"familia de estándares de gestión de la calidad."},{"termino":"UNE-EN ISO 9001:2015","definicion":"promueve el enfoque basado en procesos (EBP) para aumentar la satisfacción del cliente."},{"termino":"ISO 14000","definicion":"gestión medioambiental."},"La calidad no está en la documentación, sino en ejecutar bien los procedimientos."]},{"t":"1.4 · Gestión de Calidad Total","puntos":[{"termino":"PDCA (Deming)","definicion":"Plan – Do – Check – Act; ciclo de mejora continua."},"El 85% de los problemas de calidad nacen del PROCESO, no del empleado → potenciar empleados (círculos de calidad).",{"termino":"Seis Sigma","definicion":"reduce defectos en 5 fases: Definir, Medir, Analizar, Mejorar, Controlar."},{"termino":"Benchmarking","definicion":"tomar como referencia un estándar probado en otras empresas."},{"termino":"JIT (justo a tiempo)","definicion":"producir en el momento justo; reduce inventario y costes de calidad."},{"termino":"Taguchi","definicion":"diseños robustos; Función de Pérdida de Calidad (QLF): menor pérdida = mayor calidad."},"Función de Pérdida de Calidad (QLF, Taguchi): L = K·(x − µ)² (≡ P = C·D²). La pérdida crece con el CUADRADO de la desviación; menor pérdida = mayor calidad."]},{"t":"1.5–1.6 · Herramientas e inspección","puntos":["Herramientas: hojas de control · dispersión · Ishikawa (causa-efecto) · Pareto · diagramas de flujo · histogramas · CEP.",{"termino":"Pareto","definicion":"el 20% de las causas produce el 80% de los defectos."},"La mejor inspección es la que no hace falta → inspección en la fuente (poka-yoke). La inspección detecta defectos pero no los arregla."]}],"formulas":["Pérdida de calidad (Taguchi): L = K·(x − µ)²   (P = C·D²)"]},{"id":"p3t2","num":"2","titulo":"Análisis y mejora de procesos de trabajo","resumen":"Símbolos y tipos de diagramas de proceso, mejora de métodos y la fabricación eficiente (Lean, 5S).","bloques":[{"t":"2.2 · Símbolos de los diagramas","puntos":[{"termino":"Operación ●","definicion":"cambia las características del material (incluye montaje)."},{"termino":"Inspección ■","definicion":"verifica características del producto."},{"termino":"Transporte →","definicion":"traslado con medios; no cuenta si es \u003c 1 m o dentro del puesto."},{"termino":"Espera D","definicion":"interrupción del proceso (programada o no programada)."},{"termino":"Almacenamiento ▽","definicion":"estancia controlada en almacén cerrado."}]},{"t":"Tipos de diagramas","puntos":[{"termino":"Sinóptico","definicion":"solo operación e inspección (las que aportan valor)."},{"termino":"Analítico","definicion":"todas las actividades con detalle."},{"termino":"Bimanual","definicion":"actividad de ambas manos de un operario."},{"termino":"Hombre-máquina","definicion":"actividad del operario y de la máquina durante el ciclo."}]},{"t":"2.6 · Mejora de métodos","puntos":["Se prioriza con Pareto (recursos limitados) y actitud interrogativa con cuestionarios.","Ahorro = Economía prevista (MOD+MAT) − cpimp. Interesa el nuevo método si el ahorro es POSITIVO."]},{"t":"2.7 · Fabricación eficiente (Lean)","puntos":["Nace del Justo a Tiempo; elimina desperdicios (mudas) y lo que no aporta valor.",{"termino":"5S","definicion":"Seiri (eliminar), Seiton (ordenar), Seiso (limpiar), Seiketsu (normalizar), Shitsuke (disciplina)."},"Sistema pull (según demanda, Kanban) frente a push. Otras: 5 porqués, TPM, Kaizen, VSM, SMED (\u003c 10 min), poka-yoke."]}],"formulas":["Ahorro = Economía prevista (MOD + MAT) − cpimp"]},{"id":"p3t3","num":"3","titulo":"Medición de tiempos de trabajo","resumen":"Métodos de medición, etapas del cronometraje, ritmo del operario, tiempo básico, suplementos y tiempo concedido.","bloques":[{"t":"3.1–3.2 · Concepto y métodos","puntos":[{"termino":"OIT","definicion":"define la medición del trabajo como las técnicas para fijar el tiempo de un trabajador calificado en una tarea definida."},{"termino":"Métodos directos","definicion":"se mide en el momento: cronometraje (medición continua) y muestreo de trabajo (observación discontinua)."},{"termino":"Métodos indirectos","definicion":"sin observar: tiempos predeterminados (tablas) y estimaciones por experiencia."}]},{"t":"3.4–3.6 · Cronometraje y tiempo básico","puntos":["Etapas: información → dividir en elementos → nº de observaciones → medir → valorar ritmo → tiempos básicos → suplementos → tiempo concedido.",{"termino":"Factor de actuación (CA)","definicion":"CA = ritmo observado / ritmo tipo (A/An o A/Ar)."},{"termino":"Tiempo básico","definicion":"el que necesita un trabajador calificado a un ritmo dado (normal o tipo)."},"Escalas de ritmo habituales: 100-133, 60-80 y 75-100."]},{"t":"3.7–3.8 · Suplementos y tiempo concedido","puntos":["Suplementos: por descanso (necesidades personales + fatiga) y por contingencias.",{"termino":"Fatiga de 1er grado","definicion":"desaparece con el reposo habitual."},{"termino":"Fatiga de 2º grado","definicion":"cansancio acumulado; el descanso programado debe evitarla."},"Tiempo concedido = tiempo básico × (1 + x% + y%), con x% (descanso) e y% (contingencias)."]}],"formulas":["CA = ritmo observado / ritmo tipo","Tiempo concedido = Tiempo básico · (1 + x% + y%)"]},{"id":"p3t4","num":"4","titulo":"Procesos con máquinas y mano de obra","resumen":"Selección y coste de máquinas, capacidad productiva, mano de obra y los sistemas hombre-máquina.","bloques":[{"t":"4.1 · Coste de las máquinas","puntos":[{"termino":"Coste de interés","definicion":"Ci = A · i (A = inversión, i = interés)."},{"termino":"Coste de amortización","definicion":"Ca = A / p (p = periodo de amortización)."},"Costes fijos (inversión) + variables (operación: MOD, energía…). Depreciación lineal hasta el valor residual Ar.","Si una máquina sirve a varios procesos, se reparte su coste proporcional al tiempo de uso."]},{"t":"4.2 · Capacidad productiva","puntos":["Reducen la capacidad teórica: paradas de la máquina, factores del operario, interferencia entre máquinas y pérdidas por calidad.",{"termino":"Coeficiente de contracción","definicion":"recoge la interferencia que la parada de una máquina causa en otras que atiende el mismo operario."},{"termino":"Tolerancia de contracción (Tc)","definicion":"fracción de unidades defectuosas por unidad producida; la producción real diaria es Prd = Pd/(1 − Tc)."},"En líneas con varias máquinas se aplica la contracción en cada fase para conocer las unidades que deben procesarse en origen."]},{"t":"4.4 · Mano de obra","puntos":[{"termino":"MO directa","definicion":"interviene directamente en la producción."},{"termino":"MO indirecta","definicion":"servicios de apoyo al personal directo."},"Cada puesto se evalúa por puntos (habilidad, esfuerzo, responsabilidad…) → referencia para el salario."]},{"t":"4.5 · Sistemas hombre-máquina","puntos":[{"termino":"Tiempo exterior (te)","definicion":"atención con la máquina PARADA."},{"termino":"Tiempo interior (ti)","definicion":"atención con la máquina FUNCIONANDO."},"Diagramas: 1H-1M (reducir tiempos exteriores), 2H-1M (cuando el operario > máquina), 1H-2M (cuando la máquina >> operario).","Saturaciones: Sm = tm/tc·100 (máquina), Se = te/tc·100 (exterior), Si = ti/tc·100 (interior), So = (te+ti)/tc·100 (operario).","Rendimiento del sistema: η = (Pc/h)/(Pm/h) = tm/tc · 100."]}],"formulas":["Coste de interés: Ci = A · i","Coste de amortización: Ca = A / p","Saturaciones: Sm=tm/tc·100 · Se=te/tc·100 · Si=ti/tc·100 · So=(te+ti)/tc·100","Rendimiento 1H-1M: η = tm/tc · 100","Producción real: Prd = Pd / (1 − Tc)"]}]},{"id":"p4","tag":"P-IV","titulo":"Proyectos de fabricación por lotes","temas":[{"id":"p4t1","num":"1","titulo":"Coste de fabricación y presupuesto industrial","resumen":"Las fórmulas maestras del coste, los costes directos, indirectos y generales, y el presupuesto industrial.","bloques":[{"t":"Fórmulas maestras","puntos":["Cf = CD + CI + GG (coste de fábrica = directos + indirectos + generales).","CD = MOD + MAT + PT (mano de obra directa + materiales + puesto de trabajo)."]},{"t":"1.2 · Costes directos","puntos":[{"termino":"MOD","definicion":"mano de obra que interviene directamente (coste/hora por centro de coste)."},{"termino":"MAT","definicion":"materiales del producto; salen del almacén; cantidades brutas (descontando residuos reutilizables)."},{"termino":"PT (puesto/máquina)","definicion":"fijos (amortización, intereses) + variables (energía, mantenimiento)."}]},{"t":"1.3 · Costes indirectos","puntos":["No admiten asignación directa: materiales indirectos, MO indirecta, equipos indirectos y departamentos de servicio.","Método simplificado habitual: asignarlos proporcionalmente a los costes directos. Alternativa: por actividades (conductores de coste)."]},{"t":"1.4–1.5 · Generales y presupuesto","puntos":[{"termino":"Costes Generales (GG)","definicion":"administración, I+D, ventas, edificio, instalaciones de uso general…"},"El presupuesto industrial fija el precio de venta unitario con el beneficio deseado: Cf = CD+CI+GG → Valor de venta → Precio unitario.","Valor de venta: Vv = Cf + Bi = Cf·(1+x) si el beneficio x se da como % sobre el coste de fábrica; o Vv = Cf/(1−y) si y es % sobre el valor de venta.","Precio de venta unitario: pvu = Vv / P (P = unidades del pedido)."]}],"formulas":["Cf = CD + CI + GG","CD = MOD + MAT + PT","Vv = Cf·(1 + x)   (x = beneficio sobre el coste de fábrica)","Vv = Cf/(1 − y)   (y = beneficio sobre el valor de venta)","pvu = Vv / P"]},{"id":"p4t2","num":"2","titulo":"Planificación y programación del trabajo","resumen":"El procedimiento de planificación por lotes, los formatos (hoja de ruta), el Gantt y el cálculo del número de puestos iguales.","bloques":[{"t":"2.1 · Procedimiento (lotes / bajo pedido)","puntos":["Orden de trabajo → descomposición analítica → análisis de fabricación/montaje → coste → programación → lanzamiento → control."]},{"t":"2.2 · Formatos (3 zonas)","puntos":["Encabezamiento (identificación) · parte central (tabla) · pie (control documental de calidad).",{"termino":"Hoja de Ruta","definicion":"fases de trabajo y materiales necesarios. Tf = ts + tcd · P."},"Otras: descomposición analítica, hoja de instrucciones, hoja de mediciones, hoja del coste directo."]},{"t":"2.3 · Programación (Gantt)","puntos":["Arriba: escala de tiempos (fechas laborales). Izquierda: fases y puestos. Cargas equilibradas, sin inactividad."]},{"t":"2.4–2.5 · Número de puestos iguales","puntos":["h/pp = dn · h/jl (horas laborables del periodo por máquina).","n = Tf / (h/pp) (número de puestos iguales).","Se satura al 100% a (n−1) puestos y el último (n) lleva el periodo incompleto: hn = Tf − [(n−1)·(h/pp)].","Los tiempos serie (ts) se consideran despreciables (nulos) frente al Tf del pedido."]}],"formulas":["Tf = ts + tcd · P","h/pp = dn · h/jl","n = Tf / (h/pp)","hn = Tf − [(n−1) · (h/pp)]"]}]}]},"preguntas":{"p1t1":[{"id":"p1t1-q1","enunciado":"¿Qué caracteriza esencialmente a un proyecto?","opciones":["Que es una actividad repetitiva","Que crea un resultado único y no repetitivo","Que siempre produce un bien tangible","Que no tiene plazo definido"],"correcta":1,"explicacion":"Un proyecto produce un resultado de carácter único (bien o servicio) mediante actividades nuevas y no repetitivas."},{"id":"p1t1-q2","enunciado":"El tipo de Oficina Técnica con nivel de control PLENO es la…","opciones":["Consultiva","De control","Directiva","Operativa"],"correcta":2,"explicacion":"La OT Directiva asume todas las funciones de dirección del proyecto (control pleno). La consultiva tiene control reducido y la de control, medio."},{"id":"p1t1-q3","enunciado":"Las tres características de un proyecto industrial son:","opciones":["Rapidez, economía y calidad","Complejidad, integralidad y multidisciplinaridad","Innovación, riesgo y rentabilidad","Planificación, ejecución y control"],"correcta":1,"explicacion":"Complejidad (muchas temáticas/inversión), integralidad (todas las etapas) y multidisciplinaridad (equipos interdisciplinares)."},{"id":"p1t1-q4","enunciado":"A diferencia de un proyecto, una actividad de operación…","opciones":["Busca un resultado único","Es repetitiva y busca la eficacia organizativa","Tiene riesgo e incertidumbre altos","Termina con un acta de recepción"],"correcta":1,"explicacion":"Las operaciones son repetitivas y se orientan a la eficacia organizativa; el proyecto es único y temporal."},{"id":"p1t1-q5","enunciado":"La metodología BIM se basa en…","opciones":["Un diagrama de Gantt físico","Un modelo digital 3D que centraliza toda la información del proyecto","La firma del Director Facultativo","El método del camino crítico"],"correcta":1,"explicacion":"BIM centraliza la documentación en un modelo geométrico 3D con todos los datos del proyecto (tiempos, costes, etc.)."},{"id":"p1t1-q6","enunciado":"Las cinco fases de un proyecto, en orden, son:","opciones":["Inicio → Planificación → Ejecución → Control → Cierre","Planificación → Inicio → Control → Ejecución → Cierre","Inicio → Ejecución → Planificación → Cierre → Control","Diseño → Fabricación → Montaje → Venta → Postventa"],"correcta":0,"explicacion":"El ciclo es Inicio (viabilidad) → Planificación → Ejecución → Control → Cierre.","fuente":"Julio_2024 Ej1.b"}],"p1t2":[{"id":"p1t2-q1","enunciado":"Las tres vertientes de los objetivos de un proyecto son:","opciones":["Calidad, plazos y coste","Diseño, fabricación y venta","Memoria, planos y presupuesto","Inicio, ejecución y cierre"],"correcta":0,"explicacion":"Objetivos = calidad adecuada, cumplir plazos y ajustarse al coste presupuestado."},{"id":"p1t2-q2","enunciado":"El principal inconveniente del diagrama de Gantt es que…","opciones":["No indica fechas","No es visual","No es aconsejable en proyectos complejos (no muestra conexiones cruzadas)","No permite estimar tiempos"],"correcta":2,"explicacion":"El Gantt es muy visual, pero en proyectos complejos no detecta conexiones cruzadas ni el efecto de medidas correctoras."},{"id":"p1t2-q3","enunciado":"¿Qué métodos se basan en grafos o redes?","opciones":["Gantt y PDCA","CPM y PERT","QFD y DFM","5S y JIT"],"correcta":1,"explicacion":"Para proyectos complejos se usan métodos de redes: CPM (camino crítico) y PERT (con probabilidad)."},{"id":"p1t2-q4","enunciado":"Para dar por terminado el proyecto, el cliente debe firmar…","opciones":["El pliego de condiciones","El acta de recepción final","La licencia de obra","La hoja de ruta"],"correcta":1,"explicacion":"El cliente certifica su conformidad firmando el Acta de recepción final del proyecto."},{"id":"p1t2-q5","enunciado":"En la introducción de la oferta, el 'alcance' indica…","opciones":["El presupuesto total","Lo que NO forma parte del proyecto","El plazo de entrega","La lista de riesgos"],"correcta":1,"explicacion":"El alcance delimita el proyecto señalando expresamente lo que queda fuera de él."},{"id":"p1t2-q6","enunciado":"Los tres subprocesos de la fase de cierre del proyecto son:","opciones":["Memoria, planos y presupuesto","Verificación/comprobación, cierre administrativo y cierre del contrato","Inicio, ejecución y control","Calidad, plazos y coste"],"correcta":1,"explicacion":"El cierre comprende la verificación y comprobación (pruebas de funcionamiento), el cierre administrativo (firma) y el cierre del contrato.","fuente":"Enero_2023 Ej1.1"},{"id":"p1t2-q7","enunciado":"La duración de una actividad del proyecto depende, sobre todo, de:","opciones":["El presupuesto y el IVA","La complejidad, el esfuerzo requerido y los recursos utilizados","El número de planos y de anexos","El beneficio industrial pactado"],"correcta":1,"explicacion":"Los factores relevantes que influyen en la duración de una actividad son su complejidad, el esfuerzo requerido y los recursos utilizados.","fuente":"Enero_2023 Ej1.4"},{"id":"p1t2-q8","enunciado":"Tras adjudicarse el proyecto, la revisión de la documentación y el contrato sirve para:","opciones":["Calcular el precio de venta unitario","Detectar fallos, comprobar la correspondencia contrato–oferta y verificar medios y recursos","Redactar el Plan de Seguridad y Salud","Dibujar el diagrama de Gantt"],"correcta":1,"explicacion":"La revisión busca detectar inconsistencias de la oferta, comprobar que el contrato corresponde con lo ofertado y verificar que se dispone de medios y recursos.","fuente":"Enero_2026 Ej1.3"}],"p1t3":[{"id":"p1t3-q1","enunciado":"¿Qué norma establece los documentos básicos de un proyecto?","opciones":["UNE 157001:2014","ISO 9001:2015","RD 1627/1997","Ley 21/2013"],"correcta":0,"explicacion":"La UNE 157001:2014 fija los documentos básicos: memoria, pliego, planos y mediciones/presupuesto."},{"id":"p1t3-q2","enunciado":"¿Qué documentos NO tienen carácter vinculante?","opciones":["Pliego y planos","Memoria, mediciones y presupuesto","Solo los planos","Todos vinculan"],"correcta":1,"explicacion":"Memoria, mediciones y presupuesto no son vinculantes; el pliego de condiciones y los planos sí lo son."},{"id":"p1t3-q3","enunciado":"El Presupuesto de Ejecución por Contrata (PEC) es igual a…","opciones":["PEM + IVA","ΣCD + ΣCI","PEM + CG + Bi","PEC + IVA"],"correcta":2,"explicacion":"PEC = PEM + costes generales + beneficio industrial. Sumándole el IVA se obtiene el PAC."},{"id":"p1t3-q4","enunciado":"Es obligatorio un Estudio de Seguridad y Salud cuando el PEC es…","opciones":["≥ 150.000 €","≥ 300.000 €","≥ 450.000 €","≥ 1.000.000 €"],"correcta":2,"explicacion":"El RD 1627/1997 lo exige, entre otros supuestos, cuando el PEC ≥ 450.000 €."},{"id":"p1t3-q5","enunciado":"El Director Facultativo actúa como árbitro entre…","opciones":["Cliente y Colegio","Promotor y Contratista","Ayuntamiento y Comunidad","Diseño y fabricación"],"correcta":1,"explicacion":"Dirige la obra y arbitra entre la Propiedad/Promotor (encarga) y el Contratista (construye)."},{"id":"p1t3-q6","enunciado":"Si la Memoria no indica el orden de prioridad de los documentos, ¿cuál se toma como referencia principal?","opciones":["La Memoria","Los Planos","El Presupuesto","Las Mediciones"],"correcta":1,"explicacion":"A falta de indicación, el documento de referencia principal del proyecto son los Planos.","fuente":"Enero_2023 Ej1.2"},{"id":"p1t3-q7","enunciado":"Ante contradicción entre el presupuesto general, las mediciones y los precios unitarios, ¿qué documento manda?","opciones":["El presupuesto general","Las mediciones","El cuadro de precios unitarios","La memoria"],"correcta":2,"explicacion":"El documento de referencia en ese caso es el cuadro de precios unitarios.","fuente":"Julio_2023 Ej1.3.3"},{"id":"p1t3-q8","enunciado":"Los documentos básicos vinculantes del proyecto lo son para:","opciones":["El proyectista únicamente","El contratista y, en lo que le corresponda, el promotor/propiedad","El Colegio Profesional","El Ayuntamiento"],"correcta":1,"explicacion":"Planos y Pliego de condiciones vinculan al contratista o contratistas y, en lo que le corresponda, al promotor o propiedad.","fuente":"Julio_2023 Ej1.3.2"},{"id":"p1t3-q9","enunciado":"¿Basta con disponer del Estudio de Seguridad y Salud para empezar la ejecución de una obra?","opciones":["Sí, siempre es suficiente","No: hace falta además un Plan de Seguridad y Salud aprobado","Sí, si el PEC es menor de 450.000 €","Solo en obras de túneles"],"correcta":1,"explicacion":"Nunca basta: cada contratista debe redactar un Plan de Seguridad y Salud, aprobado por la Dirección Facultativa o el Coordinador de Seguridad durante la ejecución.","fuente":"Enero_2026 Ej1.7 / Julio_2023 Ej1.4"},{"id":"p1t3-q10","enunciado":"¿Quién designa al Coordinador de seguridad y salud durante la ejecución de la obra?","opciones":["El contratista","El Promotor o la Propiedad","El Colegio Profesional","La Comunidad Autónoma"],"correcta":1,"explicacion":"Cuando interviene más de una empresa, el Promotor designa al coordinador de seguridad, integrado en la Dirección Facultativa.","fuente":"Julio_2024 Ej1.d"},{"id":"p1t3-q11","enunciado":"La denominación completa del técnico de seguridad designado en la fase de ejecución es:","opciones":["Director Facultativo de seguridad","Coordinador en materia de seguridad y salud durante la ejecución del proyecto","Jefe de prevención de riesgos laborales","Inspector de Trabajo de la obra"],"correcta":1,"explicacion":"Su denominación oficial es «Coordinador en materia de seguridad y salud durante la ejecución del proyecto».","fuente":"Julio_2024 Ej1.d"},{"id":"p1t3-q12","enunciado":"Todo Estudio de Seguridad y Salud debe procurar que…","opciones":["se eliminen absolutamente todos los riesgos","prevalezcan las medidas de protección colectivas sobre las individuales","no se identifiquen los riesgos para no alarmar","el contratista asuma toda la responsabilidad penal"],"correcta":1,"explicacion":"Deben prevalecer las medidas de protección colectivas sobre las individuales, e identificarse todos los riesgos con sus medidas de seguridad.","fuente":"Julio_2023 Ej1.2"}],"p1t4":[{"id":"p1t4-q1","enunciado":"Las atribuciones profesionales de los Ingenieros Técnicos se regulan en…","opciones":["UNE 157001","Ley 12/1986 y Ley 33/1992","RD 1627/1997","RD 1000/2012"],"correcta":1,"explicacion":"Las leyes 12/1986 y 33/1992 dan plenas facultades a Arquitectos e Ingenieros Técnicos dentro de su especialidad."},{"id":"p1t4-q2","enunciado":"¿Qué comprueba el visado colegial?","opciones":["El presupuesto del proyecto","La identidad/habilitación del autor y la corrección formal","El plazo de ejecución","La calidad de los materiales"],"correcta":1,"explicacion":"El visado verifica la habilitación del autor y la integridad formal de la documentación; el Colegio responde de forma subsidiaria."},{"id":"p1t4-q3","enunciado":"En Madrid, las licencias municipales de obra y actividad se han unificado en…","opciones":["La Licencia Urbanística","El Registro Industrial","La Declaración de Impacto","El Acta de recepción"],"correcta":0,"explicacion":"Madrid unifica las legalizaciones en una única Licencia Urbanística."},{"id":"p1t4-q4","enunciado":"¿Cuál NO es un tipo de actividad calificada?","opciones":["Molesta","Insalubre","Inocua","Peligrosa"],"correcta":2,"explicacion":"Las calificadas son molestas, insalubres, nocivas y peligrosas. Las inocuas son precisamente las NO calificadas."},{"id":"p1t4-q5","enunciado":"La Declaración Responsable (RD-Ley 19/2012) sustituye a…","opciones":["El proyecto técnico","La licencia municipal previa","El visado colegial","El estudio de seguridad"],"correcta":1,"explicacion":"Sustituye la licencia previa en comercio; el Ayuntamiento inspecciona después."},{"id":"p1t4-q6","enunciado":"La normativa que regula los proyectos industriales se clasifica orientativamente en cinco grupos. ¿Cuáles?","opciones":["Civil, penal, mercantil, fiscal y laboral","Seguridad e higiene; medio ambiente; infraestructura y edificación; instalaciones mecánicas; instalaciones eléctricas","Europea, nacional, autonómica, municipal y privada","Memoria, planos, pliego, mediciones y presupuesto"],"correcta":1,"explicacion":"Los cinco grandes grupos son: seguridad e higiene, medio ambiente, infraestructura y edificación, instalaciones mecánicas e instalaciones eléctricas.","fuente":"Enero_2026 Ej1.9"},{"id":"p1t4-q7","enunciado":"¿Cuál NO es un fin esencial de los Colegios Profesionales?","opciones":["Ordenación del ejercicio de la profesión","Representación institucional","Fijar directamente los salarios de todo el sector","Defensa de los colegiados y protección de los consumidores"],"correcta":2,"explicacion":"Sus fines son ordenación del ejercicio, representación institucional, defensa de los colegiados y protección de consumidores; no fijan los salarios del sector.","fuente":"Enero_2023 Ej1.6"},{"id":"p1t4-q8","enunciado":"Las dos licencias industriales que conceden las Comunidades Autónomas (Dir. Gral. de Industria) son:","opciones":["Licencia de obra y licencia de actividad","Registro Industrial y Registro de Actividades de Seguridad Industrial","Licencia urbanística y declaración responsable","Licencia de primera ocupación y de funcionamiento"],"correcta":1,"explicacion":"La CCAA concede la Licencia para Registro Industrial y la del Registro de Actividades de Seguridad Industrial.","fuente":"Julio_2024 Ej1.f"}],"p2t1":[{"id":"p2t1-q1","enunciado":"El QFD convierte…","opciones":["Costes en precios","Necesidades del cliente (QUEs) en especificaciones técnicas (COMOs)","Planos en prototipos","Demanda real en pronosticada"],"correcta":1,"explicacion":"El QFD traduce los QUEs (necesidades) en COMOs (especificaciones técnicas de diseño)."},{"id":"p2t1-q2","enunciado":"La herramienta gráfica característica del QFD es…","opciones":["El diagrama de Pareto","La Casa de la Calidad","El histograma","La red nodal"],"correcta":1,"explicacion":"El QFD se representa en la Casa de la Calidad, que también compara con otras empresas."},{"id":"p2t1-q3","enunciado":"El alisamiento exponencial da más importancia a…","opciones":["Los datos más antiguos","Todos los datos por igual","Los datos más recientes","Los valores extremos"],"correcta":2,"explicacion":"Pondera más lo reciente y de forma decreciente con la antigüedad; adecuado para el corto plazo."},{"id":"p2t1-q4","enunciado":"¿Cuál es un principio del DFM?","opciones":["Maximizar el número de piezas","Usar tolerancias muy estrictas","Diseñar con el menor número de piezas posible","Evitar piezas normalizadas"],"correcta":2,"explicacion":"El DFM busca menos piezas, normalizadas e intercambiables, con tolerancias lo más amplias posible."},{"id":"p2t1-q5","enunciado":"La ingeniería concurrente consiste en que los implicados…","opciones":["Trabajan de forma secuencial","Trabajan de forma simultánea","Solo intervienen al final","Trabajan en empresas distintas"],"correcta":1,"explicacion":"Todos colaboran simultáneamente, lo que reduce el tiempo de salida al mercado."},{"id":"p2t1-q6","enunciado":"Entre dos pronósticos con distinta constante α, ¿cuál se elige?","opciones":["El de mayor error absoluto promedio (EAP)","El de menor error absoluto promedio (EAP)","El de mayor constante α siempre","El de menor demanda real"],"correcta":1,"explicacion":"Se elige la constante de alisamiento que produce el menor error absoluto promedio (EAP).","fuente":"Enero_2023 Ej1.7"},{"id":"p2t1-q7","enunciado":"El Error Absoluto Promedio (EAP) de un pronóstico se calcula como:","opciones":["Σe / n","Σ|e| / n","Σe² / n","√(Σe²/(n−1))"],"correcta":1,"explicacion":"EAP = Σ|e|/n, con e = F − D (pronosticada − real) sobre n periodos.","fuente":"Enero_2023 Ej1.7"}],"p2t2":[{"id":"p2t2-q1","enunciado":"¿Qué tipo de fabricación tiene costes fijos bajos y variables altos?","opciones":["En serie","Taller","Por lotes","Flexible automatizada"],"correcta":1,"explicacion":"El taller usa maquinaria general y MO cualificada: costes fijos bajos pero variables altos y baja productividad."},{"id":"p2t2-q2","enunciado":"La fabricación en serie se caracteriza por…","opciones":["Mucha variedad y poco volumen","Gran volumen y poca variedad","Producción bajo pedido","Máquinas agrupadas por funciones"],"correcta":1,"explicacion":"Grandes volúmenes de poca variedad, puestos en secuencia, costes fijos altos y variables bajos."},{"id":"p2t2-q3","enunciado":"Con un valor de p alto en tecnología de grupos se obtienen…","opciones":["Pocos grupos con muchas máquinas","Muchos grupos con pocas máquinas","Un único grupo","Ningún grupo"],"correcta":1,"explicacion":"p alto es más restrictivo para entrar: se forman muchos grupos con pocas máquinas."},{"id":"p2t2-q4","enunciado":"El tiempo de ciclo máximo de una cadena se calcula como…","opciones":["Σti / Tcm","Tdd / Pd","tesi / tc","Nef · Tc"],"correcta":1,"explicacion":"Tcm = tiempo disponible por día (Tdd) entre producción diaria requerida (Pd)."},{"id":"p2t2-q5","enunciado":"El objetivo del equilibrado de una cadena de montaje es…","opciones":["Reducir el número de piezas","Igualar los tiempos de las estaciones","Eliminar la inspección","Aumentar la variedad de productos"],"correcta":1,"explicacion":"Equilibrar busca igualar los tiempos de las estaciones obteniendo la producción deseada."},{"id":"p2t2-q6","enunciado":"El equilibrado de una cadena de FABRICACIÓN se consigue:","opciones":["Modificando la asignación de tareas","Con cambios mecánicos y de ingeniería","Eliminando la inspección final","Aumentando el tamaño del lote"],"correcta":1,"explicacion":"En las cadenas de fabricación el equilibrado se logra con cambios mecánicos y de ingeniería.","fuente":"Julio_2024 Ej1.h"},{"id":"p2t2-q7","enunciado":"El equilibrado de una cadena de MONTAJE se consigue:","opciones":["Con cambios mecánicos y de ingeniería","Modificando la asignación de tareas a las estaciones","Comprando máquinas más rápidas","Reduciendo el número de productos"],"correcta":1,"explicacion":"En las cadenas de montaje el equilibrado se obtiene modificando la asignación de tareas entre estaciones.","fuente":"Julio_2024 Ej1.h"},{"id":"p2t2-q8","enunciado":"¿Qué tipo de maquinaria se usa en fabricaciones de productos muy variados y con demanda reducida?","opciones":["Maquinaria de alta velocidad","Maquinaria de tipo universal y flexible","Maquinaria de gran tamaño","Maquinaria especializada"],"correcta":1,"explicacion":"La mucha variedad con poco volumen (taller) exige maquinaria de tipo universal y flexible.","fuente":"Julio_2024 Ej2.5"},{"id":"p2t2-q9","enunciado":"La distribución/fabricación en línea (serie) se emplea fundamentalmente cuando la demanda es:","opciones":["Inestable y reducida","Estable y elevada","Variable y por pedido","Nula"],"correcta":1,"explicacion":"La línea se justifica con una demanda estable y elevada de uno o pocos productos.","fuente":"Julio_2023 Ej2.d"}],"p2t3":[{"id":"p2t3-q1","enunciado":"¿Cuál es un objetivo básico de la distribución en planta?","opciones":["Maximizar las distancias","Distancias mínimas y seguridad del personal","Aumentar el inventario","Reducir la flexibilidad"],"correcta":1,"explicacion":"Busca distancias mínimas, flexibilidad, uso efectivo del espacio y seguridad, integrando todos los factores."},{"id":"p2t3-q2","enunciado":"El método del flujo de materiales es habitual en…","opciones":["Talleres de prototipos","Industrias de proceso","Oficinas técnicas","Laboratorios de I+D"],"correcta":1,"explicacion":"Distribuye según la secuencia del movimiento de materiales; típico de industrias de proceso."},{"id":"p2t3-q3","enunciado":"En la red nodal, el departamento de mayor valor se sitúa…","opciones":["En una esquina","En el centro","Fuera de la red","Al final del flujo"],"correcta":1,"explicacion":"Se coloca en el centro y a su alrededor los demás por orden de relación."},{"id":"p2t3-q4","enunciado":"La mejor red nodal es aquella que tiene…","opciones":["Mayor valor total de cercanía","Menor valor total de cercanía","Más líneas cruzadas","El mayor número de nodos"],"correcta":1,"explicacion":"La red más adecuada minimiza la suma de las medidas de cercanía (menor valor)."},{"id":"p2t3-q5","enunciado":"La medida de cercanía entre dos departamentos se calcula…","opciones":["Sumando sus áreas","Distancia rectilínea × valor de la relación","Número de máquinas × tiempo","Por intuición del proyectista"],"correcta":1,"explicacion":"Es la distancia rectilínea (bloques cruzados) multiplicada por el valor de la relación entre ambos."},{"id":"p2t3-q6","enunciado":"La localización (posición) fija se emplea en la fabricación de:","opciones":["Muchas unidades pequeñas","Pocas y grandes unidades","Series largas automatizadas","Productos de demanda inestable"],"correcta":1,"explicacion":"La localización fija es propia de fabricar pocas y grandes unidades (el producto no se mueve).","fuente":"Julio_2023 Ej2.d"},{"id":"p2t3-q7","enunciado":"¿Cuál NO es un beneficio de una buena distribución en planta?","opciones":["Reducción de los costes de fabricación","Aumentar el material en curso de fabricación","Ahorro de espacio","Menores riesgos para la salud del personal"],"correcta":1,"explicacion":"Una buena distribución MINIMIZA el material en curso; el resto sí son beneficios reales.","fuente":"Julio_2023 Ej2.c"}],"p3t1":[{"id":"p3t1-q1","enunciado":"Los defectos que llegan al cliente generan costes de…","opciones":["Prevención","Evaluación","Fallos internos","Fallos externos"],"correcta":3,"explicacion":"Los fallos externos son los artículos defectuosos vendidos (devoluciones, reparaciones, pérdida de clientes)."},{"id":"p3t1-q2","enunciado":"La norma ISO 9001:2015 promueve…","opciones":["El enfoque basado en procesos","La gestión medioambiental","El método PERT","La función de pérdida de Taguchi"],"correcta":0,"explicacion":"La UNE-EN ISO 9001:2015 se basa en el enfoque basado en procesos (EBP) para aumentar la satisfacción del cliente."},{"id":"p3t1-q3","enunciado":"Las siglas PDCA significan…","opciones":["Plan, Diseño, Control, Auditoría","Plan, Do, Check, Act","Producción, Demanda, Coste, Análisis","Prevención, Defectos, Calidad, Acción"],"correcta":1,"explicacion":"El ciclo de Deming es Plan (planificar), Do (hacer), Check (verificar) y Act (actuar)."},{"id":"p3t1-q4","enunciado":"Según el principio de Pareto…","opciones":["El 80% de las causas produce el 20% de los defectos","El 20% de las causas produce el 80% de los defectos","Todas las causas pesan igual","Solo hay una causa de los defectos"],"correcta":1,"explicacion":"Pocas causas (≈20%) son responsables de la mayoría de los defectos (≈80%)."},{"id":"p3t1-q5","enunciado":"El diagrama de Ishikawa (espina de pescado) sirve para…","opciones":["Medir tiempos","Analizar las causas que originan un fallo","Calcular costes","Representar la demanda"],"correcta":1,"explicacion":"El diagrama causa-efecto de Ishikawa identifica y ordena las causas de un problema de calidad."},{"id":"p3t1-q6","enunciado":"¿Cuál es la mejor inspección posible?","opciones":["La realizada al 100% de las piezas","La que se hace al final del proceso","La que no es necesaria (en la fuente, poka-yoke)","La que realiza un inspector externo"],"correcta":2,"explicacion":"La mejor inspección es la que no hace falta: cada etapa entrega sin defectos a la siguiente (poka-yoke)."},{"id":"p3t1-q7","enunciado":"¿Qué herramienta se utiliza para determinar los costes asociados a una baja calidad industrial?","opciones":["Diagrama de flujo","Histograma","Función de Pérdida de Calidad (QLF)","Gráfico de Pareto"],"correcta":2,"explicacion":"La Función de Pérdida de Calidad (QLF) de Taguchi cuantifica, en dinero, la pérdida por baja calidad.","fuente":"Julio_2024 Ej2.1"},{"id":"p3t1-q8","enunciado":"La Función de Pérdida de Calidad de Taguchi establece que la pérdida es proporcional a:","opciones":["La desviación respecto al objetivo","El cuadrado de la desviación respecto al objetivo","La raíz de la desviación","El número de unidades fabricadas"],"correcta":1,"explicacion":"L = K·(x−µ)²: la pérdida crece con el cuadrado de la desviación respecto al valor objetivo.","fuente":"Julio_2023 Ej1.5"},{"id":"p3t1-q9","enunciado":"Implantar un sistema de Gestión de Calidad Total en una empresa supone, entre otras cosas:","opciones":["Mayores costes de garantía del producto","Mayor rapidez de respuesta a los clientes","Llegar a acuerdos de competitividad con otras empresas","Aumentar el precio de venta"],"correcta":1,"explicacion":"La GCT aumenta las ventas por mayor rapidez de respuesta y permite reducir el precio de venta; reduce los costes de garantía.","fuente":"Enero_2026 Ej2.a"}],"p3t2":[{"id":"p3t2-q1","enunciado":"El símbolo ● (círculo) en un diagrama de proceso representa…","opciones":["Una inspección","Una operación (cambio en el material)","Un transporte","Un almacenamiento"],"correcta":1,"explicacion":"La operación cambia las características del material e incluye las actividades de montaje."},{"id":"p3t2-q2","enunciado":"El diagrama sinóptico recoge únicamente…","opciones":["Todas las actividades","Operaciones e inspecciones","Esperas y transportes","Almacenamientos"],"correcta":1,"explicacion":"El sinóptico muestra solo operaciones e inspecciones (las que aportan valor). El analítico recoge todo."},{"id":"p3t2-q3","enunciado":"El orden correcto de las 5S es…","opciones":["Seiton, Seiri, Seiso, Shitsuke, Seiketsu","Seiri, Seiton, Seiso, Seiketsu, Shitsuke","Seiso, Seiri, Seiton, Seiketsu, Shitsuke","Seiketsu, Seiri, Seiton, Seiso, Shitsuke"],"correcta":1,"explicacion":"Eliminar → Ordenar → Limpiar → Normalizar → Disciplina."},{"id":"p3t2-q4","enunciado":"Un sistema 'pull' se gestiona normalmente mediante…","opciones":["Push de la dirección","Kanban (según la demanda)","Diagramas de Gantt","Lotes de seguridad"],"correcta":1,"explicacion":"El flujo pull se basa en la demanda y se apoya en sistemas Kanban, no en el empuje (push)."},{"id":"p3t2-q5","enunciado":"Interesa aplicar el método propuesto cuando…","opciones":["El ahorro es negativo","El ahorro es positivo (> 0)","La economía prevista es cero","El cpimp es mayor que la economía"],"correcta":1,"explicacion":"Ahorro = Economía prevista − cpimp; si es mayor que 0, conviene implantar el nuevo método."},{"id":"p3t2-q6","enunciado":"La técnica SMED busca…","opciones":["Reducir el inventario","Cambiar herramientas en menos de 10 minutos","Eliminar la inspección","Aumentar el tamaño del lote"],"correcta":1,"explicacion":"SMED (Single Minute Exchange of Die) reduce los tiempos de cambio de herramienta a menos de 10 minutos."},{"id":"p3t2-q7","enunciado":"¿Qué información recoge un diagrama analítico del proceso de trabajo?","opciones":["Datos personales de los empleados","Resultados de encuestas de satisfacción","Datos del método actual de trabajo y resultados del análisis crítico","La distribución en planta de la fábrica"],"correcta":2,"explicacion":"El diagrama analítico detalla el método actual de trabajo y sirve de base para el análisis crítico y la mejora.","fuente":"Julio_2024 Ej2.4"},{"id":"p3t2-q8","enunciado":"El diagrama hombre-máquina se caracteriza por mostrar una escala central de tiempos que abarca:","opciones":["Toda la jornada laboral","Todo el tiempo ciclo","Solo el tiempo de máquina","Una unidad de coste"],"correcta":1,"explicacion":"Su escala central graduada de tiempos abarca todo el tiempo ciclo, mostrando la simultaneidad operario-máquina.","fuente":"Enero_2026 Ej2.d"},{"id":"p3t2-q9","enunciado":"¿Cuál es el objetivo del análisis del proceso de fabricación y montaje?","opciones":["Aumentar los tiempos de producción","Optimizar los tiempos y costes de producción","Aumentar los costes de producción","Eliminar los diagramas de proceso"],"correcta":1,"explicacion":"El análisis del proceso busca optimizar (reducir) tiempos y costes de producción.","fuente":"Julio_2024 Ej2.7"}],"p3t3":[{"id":"p3t3-q1","enunciado":"¿Cuáles son métodos DIRECTOS de medición de tiempos?","opciones":["Tiempos predeterminados y estimaciones","Cronometraje y muestreo de trabajo","Tablas y experiencia","PERT y Gantt"],"correcta":1,"explicacion":"Los directos miden en el momento: cronometraje (continuo) y muestreo de trabajo (discontinuo)."},{"id":"p3t3-q2","enunciado":"Los tiempos predeterminados (a partir de tablas) son un método…","opciones":["Directo","Indirecto","Cualitativo","Estadístico continuo"],"correcta":1,"explicacion":"Son indirectos: fijan el tiempo sin observar presencialmente la operación."},{"id":"p3t3-q3","enunciado":"El factor de actuación (CA) se define como…","opciones":["Ritmo tipo / ritmo observado","Ritmo observado / ritmo tipo","Tiempo concedido / tiempo básico","Suplemento / tiempo básico"],"correcta":1,"explicacion":"CA = ritmo observado entre ritmo tipo (A/An o A/Ar)."},{"id":"p3t3-q4","enunciado":"La fatiga de 2º grado se caracteriza por…","opciones":["Desaparecer con el reposo habitual","Ser cansancio acumulado que no se va con el reposo cotidiano","No existir en el trabajo manual","Eliminarse sin descanso"],"correcta":1,"explicacion":"Es cansancio acumulado; el descanso programado debe evitar que aparezca."},{"id":"p3t3-q5","enunciado":"El tiempo concedido se obtiene…","opciones":["Restando suplementos al tiempo básico","Sumando al tiempo básico los suplementos por descanso y contingencias","Dividiendo el básico entre el ritmo","Igualándolo al tiempo observado"],"correcta":1,"explicacion":"Tiempo concedido = tiempo básico mayorado por el suplemento total (x% descanso + y% contingencias)."},{"id":"p3t3-q6","enunciado":"En una escala de valoración del ritmo (p. ej. 100-133), el primer y el segundo valor representan:","opciones":["El mínimo y el máximo absolutos","El ritmo normal (sin incentivos) y el ritmo tipo (a destajo)","El tiempo básico y el tiempo concedido","El suplemento y la contingencia"],"correcta":1,"explicacion":"El primer valor es el ritmo normal (trabajador sin incentivos) y el segundo el ritmo tipo (con incentivos/a destajo).","fuente":"Julio_2023 Ej4.a"}],"p3t4":[{"id":"p3t4-q1","enunciado":"El coste de amortización (método simplificado) se calcula como…","opciones":["A · i","A / p","A − Ar","A · p"],"correcta":1,"explicacion":"Ca = A / p, siendo A la inversión y p el periodo de amortización."},{"id":"p3t4-q2","enunciado":"El coeficiente de contracción recoge…","opciones":["El desgaste de la herramienta","La interferencia entre máquinas que atiende un mismo operario","El absentismo laboral","La energía consumida"],"correcta":1,"explicacion":"Refleja la interferencia que la parada de una máquina provoca en otras atendidas por el mismo operario."},{"id":"p3t4-q3","enunciado":"El tiempo exterior (te) es el tiempo de atención…","opciones":["Con la máquina funcionando","Con la máquina parada","Durante el mantenimiento","Fuera de la jornada"],"correcta":1,"explicacion":"El tiempo exterior es la atención del operario con la máquina parada; el interior, con la máquina funcionando."},{"id":"p3t4-q4","enunciado":"Cuando el tiempo de operario es muy pequeño frente al de la máquina, se mejora con…","opciones":["1 hombre - 1 máquina","2 hombres - 1 máquina","1 hombre - 2 máquinas","Ninguna combinación"],"correcta":2,"explicacion":"Si el operario tiene mucho tiempo libre respecto a la máquina, conviene asignarle 2 máquinas (1H-2M)."},{"id":"p3t4-q5","enunciado":"La mano de obra indirecta es la que…","opciones":["Transforma directamente el producto","Presta servicios de apoyo (no produce directamente)","Solo trabaja en serie","Cobra por horas extra"],"correcta":1,"explicacion":"La MO directa interviene en la producción; la indirecta da servicios de apoyo a ese personal."},{"id":"p3t4-q6","enunciado":"El rendimiento de un sistema 1 hombre-1 máquina se calcula como:","opciones":["η = tc / tm","η = (Pc/h)/(Pm/h) = tm/tc","η = te / ti","η = tc · pc"],"correcta":1,"explicacion":"El rendimiento es la producción ciclo/hora entre la producción máquina/hora, que equivale a tm/tc.","fuente":"Enero_2023 Ej2.c"},{"id":"p3t4-q7","enunciado":"En un sistema 1 hombre-1 máquina, ¿qué acción se suele tomar para aumentar la productividad?","opciones":["Reducir los tiempos exteriores","Aumentar el tiempo de máquina","Eliminar los descansos","Aumentar el tamaño del lote"],"correcta":0,"explicacion":"Reducir los tiempos exteriores (atención con la máquina parada) acorta el ciclo y sube la productividad.","fuente":"Julio_2023 Ej2.e"},{"id":"p3t4-q8","enunciado":"La saturación de la máquina (Sm) en un sistema hombre-máquina es:","opciones":["te/tc · 100","ti/tc · 100","tm/tc · 100","(te+ti)/tc · 100"],"correcta":2,"explicacion":"Sm = tm/tc · 100; Se=te/tc·100 (exterior), Si=ti/tc·100 (interior) y So=(te+ti)/tc·100 (operario).","fuente":"Julio_2023 Ej3 / temario"}],"p4t1":[{"id":"p4t1-q1","enunciado":"El coste de fábrica (Cf) se compone de…","opciones":["MOD + MAT + PT","CD + CI + GG","PEM + CG + Bi","Ci + Ca"],"correcta":1,"explicacion":"Cf = costes directos (CD) + costes indirectos (CI) + costes generales (GG)."},{"id":"p4t1-q2","enunciado":"Los costes directos (CD) son…","opciones":["MOD + MAT + PT","CD + CI","Solo los materiales","Administración e I+D"],"correcta":0,"explicacion":"CD = mano de obra directa + materiales + puesto de trabajo (equipos/máquinas)."},{"id":"p4t1-q3","enunciado":"El método simplificado más usado reparte los costes indirectos…","opciones":["A partes iguales","Proporcionalmente a los costes directos","Según el número de empleados","Por sorteo"],"correcta":1,"explicacion":"Lo habitual es asignar los costes indirectos de forma proporcional a los costes directos."},{"id":"p4t1-q4","enunciado":"La amortización de un puesto de trabajo es un coste…","opciones":["Variable","Fijo","Indirecto siempre","General"],"correcta":1,"explicacion":"La amortización y los intereses son costes fijos del puesto; la energía y el mantenimiento son variables."},{"id":"p4t1-q5","enunciado":"El objetivo del presupuesto industrial es…","opciones":["Calcular el plazo de entrega","Fijar el precio de venta unitario con el beneficio deseado","Repartir la mano de obra","Diseñar el producto"],"correcta":1,"explicacion":"Determina todos los costes para establecer el precio de venta unitario que dé el beneficio industrial buscado."},{"id":"p4t1-q6","enunciado":"¿Cómo se calcula el coste por hora de mantenimiento de una máquina?","opciones":["Sumando todos los costes de mantenimiento","Multiplicando los costes por el número de horas","Dividiendo los costes entre las horas de funcionamiento","Restando los costes de mantenimiento"],"correcta":2,"explicacion":"El coste/hora se obtiene dividiendo el coste de mantenimiento entre las horas de funcionamiento.","fuente":"Julio_2024 Ej2.6"},{"id":"p4t1-q7","enunciado":"Según su origen, los costes indirectos se dividen en dos categorías:","opciones":["Fijos y variables","De los centros de producción y de los departamentos de servicio","Directos e indirectos","Materiales y mano de obra"],"correcta":1,"explicacion":"Por su origen, los costes indirectos proceden de los centros de producción o de los departamentos de servicio.","fuente":"Julio_2023 Ej2.a"},{"id":"p4t1-q8","enunciado":"Si el beneficio se da como porcentaje x sobre el coste de fábrica, el valor de venta es:","opciones":["Vv = Cf − x","Vv = Cf·(1 + x)","Vv = Cf/(1 + x)","Vv = Cf·x"],"correcta":1,"explicacion":"Vv = Cf + Bi = Cf·(1+x). Si el beneficio y fuese sobre el valor de venta: Vv = Cf/(1−y).","fuente":"Enero_2023 Ej2.e / Enero_2026 Ej4"}],"p4t2":[{"id":"p4t2-q1","enunciado":"El tiempo de fabricación de una fase (Hoja de Ruta) se calcula…","opciones":["Tf = ts · tcd","Tf = ts + tcd · P","Tf = tcd / P","Tf = ts − P"],"correcta":1,"explicacion":"Tf = tiempo de serie (ts) + tiempo unitario concedido (tcd) × tamaño del pedido (P)."},{"id":"p4t2-q2","enunciado":"El número de puestos iguales se obtiene como…","opciones":["n = h/pp · Tf","n = Tf / (h/pp)","n = dn · h/jl","n = Tf − ts"],"correcta":1,"explicacion":"n = tiempo de fabricación (Tf) entre las horas laborables del periodo por máquina (h/pp)."},{"id":"p4t2-q3","enunciado":"En la programación por lotes, los tiempos serie (ts) se consideran…","opciones":["El factor más importante","Despreciables (nulos) frente al Tf","Iguales al tiempo unitario","Variables con el pedido"],"correcta":1,"explicacion":"Se asume que los tiempos serie son despreciables frente al tiempo de fabricación del pedido."},{"id":"p4t2-q4","enunciado":"La Hoja de Ruta recoge…","opciones":["El precio de venta","Las fases de trabajo y los materiales necesarios","El plan de seguridad","La tabla de relaciones"],"correcta":1,"explicacion":"Especifica las fases de fabricación (con sus tiempos) y los materiales de cada pieza."},{"id":"p4t2-q5","enunciado":"El pie de los formatos de planificación sirve para…","opciones":["Identificar el producto","El control documental propio de la calidad total","Dibujar el croquis","Calcular el Gantt"],"correcta":1,"explicacion":"El pie incluye autor, fechas, visto bueno y versiones: el control documental característico de la gestión de la calidad."},{"id":"p4t2-q6","enunciado":"La Hoja de Ruta describe cada fase de trabajo indicando su tiempo…","opciones":["solo total","solo unitario","serie, unitario y total","de descanso"],"correcta":2,"explicacion":"La Hoja de Ruta recoge, por fase, el tiempo serie (ts), el unitario concedido (tcd) y el total (Tf = ts + tcd·P).","fuente":"Enero_2026 Ej2.e"}]}};</script>
+<script>
+/* ===================================================================
+   Oficina Técnica — Apuntes y Test
+   --------------------------------------------------------------------
+   Toda la lógica de la app:
+     · carga de datos (datos embebidos del build o vía fetch en servidor)
+     · validación y combinación temario + banco de preguntas (por id de tema)
+     · índice lateral, render de apuntes, motor del test, examen completo
+     · barra de progreso y guardado del porcentaje por tema
+   Los contenidos viven en data/temario.json y data/preguntas.json.
+   =================================================================== */
+
+/* ============ almacenamiento protegido (no rompe en sandbox/file://) ============ */
+const store = (() => {
+  let mem = {}, ok = false;
+  try { const k = "__ot_test__"; localStorage.setItem(k, "1"); localStorage.removeItem(k); ok = true; }
+  catch (e) { ok = false; }
+  return {
+    get(k){ try { return ok ? localStorage.getItem(k) : (k in mem ? mem[k] : null); } catch (e) { return k in mem ? mem[k] : null; } },
+    set(k, v){ try { ok ? localStorage.setItem(k, v) : (mem[k] = v); } catch (e) { mem[k] = v; } }
+  };
+})();
+const loadProgress = () => { try { return JSON.parse(store.get("ot_progress") || "{}"); } catch (e) { return {}; } };
+const saveProgress = p => store.set("ot_progress", JSON.stringify(p));
+
+/* ============ estado y referencias ============ */
+let PARTES = [];        // modelo en memoria (temario con preguntas combinadas)
+let ALLQ = [];          // todas las preguntas válidas (para el examen completo)
+let TOTAL_TEMAS = 0;
+let progress = loadProgress();   // { temaId: mejorPct }
+let current = null;     // tema actual
+let quiz = null;        // estado del test en curso
+
+const panel = document.getElementById("panel");
+const indexList = document.getElementById("indexList");
+const indexPanel = document.getElementById("indexPanel");
+
+/* ============ carga de datos: embebidos (dist) o vía fetch (servidor) ============ */
+async function loadData(){
+  // build.js inyecta window.__OT_DATA__ en el fichero único de dist/
+  if (window.__OT_DATA__) return window.__OT_DATA__;
+  // si no, los pedimos por fetch (requiere servidor local; ver README)
+  const grab = async (url) => {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(url + " → HTTP " + r.status);
+    return r.json();
+  };
+  const [temario, preguntas] = await Promise.all([
+    grab("./data/temario.json"),
+    grab("./data/preguntas.json")
+  ]);
+  return { temario, preguntas };
+}
+
+/* ============ validación de una pregunta ============ */
+function isValidQuestion(q){
+  if (!q || typeof q !== "object") return false;
+  if (typeof q.enunciado !== "string" || !q.enunciado.trim()) return false;
+  if (!Array.isArray(q.opciones) || q.opciones.length < 2) return false;
+  if (!Number.isInteger(q.correcta) || q.correcta < 0 || q.correcta >= q.opciones.length) return false;
+  return true;
+}
+
+/* ============ modelo: combina temario + preguntas por id de tema ============ */
+function buildModel(temario, preguntas){
+  PARTES = (temario && Array.isArray(temario.partes)) ? temario.partes : [];
+  preguntas = preguntas || {};
+  ALLQ = [];
+  TOTAL_TEMAS = 0;
+  let gid = 0;
+  PARTES.forEach((P, pi) => {
+    (P.temas || []).forEach((t, ti) => {
+      TOTAL_TEMAS++;
+      t._pi = pi; t._ti = ti;
+      const banco = Array.isArray(preguntas[t.id]) ? preguntas[t.id] : [];
+      t.test = [];
+      banco.forEach(q => {
+        if (!isValidQuestion(q)){
+          console.warn(`[OT] Pregunta omitida en tema "${t.id}" (falta 'correcta' válida u opciones):`, q);
+          return;
+        }
+        q._tema = t.titulo;
+        q._gid = gid++;
+        t.test.push(q);
+        ALLQ.push(q);
+      });
+    });
+  });
+}
+
+/* ============ sidebar / índice ============ */
+function buildIndex(){
+  indexList.innerHTML = "";
+  PARTES.forEach((P, pi) => {
+    const wrap = document.createElement("div"); wrap.className = "parte" + (pi === 0 ? " open" : "");
+    const head = document.createElement("button"); head.className = "parte-h";
+    head.innerHTML = `<span class="parte-tag">${P.tag}</span><span class="pt">${P.titulo}</span><span class="chev">▸</span>`;
+    head.onclick = () => wrap.classList.toggle("open");
+    const temas = document.createElement("div"); temas.className = "temas";
+    P.temas.forEach((t, ti) => {
+      const b = document.createElement("button"); b.className = "tema-link"; b.dataset.id = t.id;
+      const done = progress[t.id] != null;
+      b.innerHTML = `<span class="tnum">${pi + 1}.${t.num}</span><span>${t.titulo}</span>${done ? `<span class="done">${progress[t.id]}%</span>` : ""}`;
+      b.onclick = () => { openTema(t); if (window.innerWidth <= 880) indexPanel.classList.remove("open"); };
+      temas.appendChild(b);
+    });
+    wrap.appendChild(head); wrap.appendChild(temas); indexList.appendChild(wrap);
+  });
+  refreshActive(); updateGlobal();
+}
+function refreshActive(){
+  document.querySelectorAll(".tema-link").forEach(el => {
+    el.classList.toggle("active", current && el.dataset.id === current.id);
+    const t = findTema(el.dataset.id);
+    const done = t && progress[t.id] != null;
+    let d = el.querySelector(".done");
+    if (done){ if (!d){ d = document.createElement("span"); d.className = "done"; el.appendChild(d); } d.textContent = progress[t.id] + "%"; }
+    else if (d) d.remove();
+  });
+}
+function findTema(id){ for (const P of PARTES) for (const t of P.temas) if (t.id === id) return t; }
+function updateGlobal(){
+  document.getElementById("globalTotal").textContent = TOTAL_TEMAS;
+  document.getElementById("globalDone").textContent = Object.keys(progress).length;
+}
+
+/* ============ render: bienvenida ============ */
+function renderHero(){
+  current = null; quiz = null; refreshActive();
+  panel.innerHTML = `
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-grid"></div>
+      <div class="eyebrow">PROYECTOS · DISEÑO · FABRICACIÓN · COSTES</div>
+      <h2>Estudia Oficina Técnica sin perder tiempo</h2>
+      <p>Las 4 partes del temario divididas en 13 temas, con apuntes condensados y un test por tema que se corrige al instante. Empieza por el índice de la izquierda o lánzate a un examen completo.</p>
+    </div>
+    <div class="hero-body">
+      <div class="steps">
+        <div class="step"><div class="n">01 · LEE</div><h4>Apuntes por tema</h4><p>Definiciones, clasificaciones y fórmulas reescritas para que entren rápido.</p></div>
+        <div class="step"><div class="n">02 · PRUÉBATE</div><h4>Test inmediato</h4><p>Preguntas tipo test con corrección y explicación al momento.</p></div>
+        <div class="step"><div class="n">03 · REPITE</div><h4>Solo lo que fallas</h4><p>Tu porcentaje queda guardado por tema para volver a lo flojo.</p></div>
+      </div>
+      <div class="method">
+        <h4>El método que de verdad cunde con poco tiempo</h4>
+        <p>No releas: hazte el test, falla, lee por qué, y vuelve a los temas con menor porcentaje. El recuerdo activo fija las definiciones y leyes mucho más rápido que subrayar.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="v">${PARTES.length}</div><div class="l">PARTES</div></div>
+        <div class="stat"><div class="v">${TOTAL_TEMAS}</div><div class="l">TEMAS</div></div>
+        <div class="stat"><div class="v">${ALLQ.length}</div><div class="l">PREGUNTAS</div></div>
+        <div class="stat"><div class="v" id="heroDone">0</div><div class="l">TEMAS HECHOS</div></div>
+      </div>
+      <div class="note-cta">
+        <button class="btn btn-blue" id="startBtn">Empezar por el Tema 1</button>
+        <button class="btn btn-line" id="heroExam">Examen completo (20 preguntas)</button>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById("heroDone").textContent = Object.keys(progress).length;
+  const firstTema = PARTES[0] && PARTES[0].temas[0];
+  document.getElementById("startBtn").onclick = () => { if (firstTema) openTema(firstTema); };
+  document.getElementById("heroExam").onclick = startExam;
+}
+
+/* ============ render: tema ============ */
+function openTema(t, tab = "apuntes"){
+  current = t; quiz = null;
+  panel.innerHTML = `
+    <div class="tema-head">
+      <div class="tema-eyebrow">
+        <span class="ref">${PARTES[t._pi].tag} · T${t.num}</span>
+        <span class="pname">${PARTES[t._pi].titulo}</span>
+      </div>
+      <h2>${t.titulo}</h2>
+      <p class="resumen">${t.resumen}</p>
+    </div>
+    <div class="tabs">
+      <button class="tab" data-tab="apuntes">Apuntes</button>
+      <button class="tab" data-tab="test">Test<span class="cnt">${t.test.length}</span></button>
+    </div>
+    <div class="tab-body" id="tabBody"></div>`;
+  panel.querySelectorAll(".tab").forEach(b => b.onclick = () => setTab(b.dataset.tab));
+  setTab(tab); refreshActive();
+  panel.scrollIntoView({ block: "start" });
+}
+function setTab(tab){
+  panel.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  const body = document.getElementById("tabBody");
+  if (tab === "apuntes") renderNotes(body); else renderQuizIntro(body);
+}
+function renderNotes(body){
+  const t = current; let h = "";
+  t.bloques.forEach(b => {
+    h += `<div class="bloque"><h4 class="bloque-t">${b.t}</h4><ul>`;
+    b.puntos.forEach(p => {
+      if (typeof p === "string") h += `<li>${p}</li>`;
+      else h += `<li class="kv"><span class="term">${p.termino}</span> — ${p.definicion}</li>`;
+    });
+    h += `</ul></div>`;
+  });
+  if (t.formulas && t.formulas.length){
+    h += `<div class="formulas"><div class="ft">Fórmulas clave</div>`;
+    t.formulas.forEach(f => h += `<div class="f">${f}</div>`); h += `</div>`;
+  }
+  h += `<div class="note-cta"><span>¿Te lo sabes? Compruébalo.</span><button class="btn btn-accent" id="toTest">Hacer el test de este tema →</button></div>`;
+  body.innerHTML = h;
+  document.getElementById("toTest").onclick = () => setTab("test");
+}
+
+/* ============ quiz ============ */
+function renderQuizIntro(body){
+  const t = current; const best = progress[t.id];
+  if (!t.test.length){
+    body.innerHTML = `<div class="empty">Este tema todavía no tiene preguntas.<br>Añádelas en <b>data/preguntas.json</b> bajo la clave <b>"${t.id}"</b>.</div>`;
+    return;
+  }
+  body.innerHTML = `
+   <div class="results" style="padding-top:8px">
+     <h3>Test · ${t.titulo}</h3>
+     <p class="msg">${t.test.length} preguntas tipo test con corrección y explicación inmediata.${best != null ? ` Tu mejor resultado: <b style="color:var(--blue)">${best}%</b>.` : ""}</p>
+     <div class="actions"><button class="btn btn-blue" id="go">Empezar test</button>
+     <button class="btn btn-line" id="back">Ver apuntes</button></div>
+   </div>`;
+  document.getElementById("go").onclick = () => startQuiz(t.test, t.id, t.titulo);
+  document.getElementById("back").onclick = () => setTab("apuntes");
+}
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function startExam(){
+  if (!ALLQ.length) return;
+  const qs = shuffle(ALLQ).slice(0, Math.min(20, ALLQ.length));
+  current = null; refreshActive();
+  startQuiz(qs, "__exam__", "Examen completo");
+}
+function startQuiz(questions, saveId, title){
+  quiz = { qs: questions, i: 0, correct: 0, answered: false, saveId, title };
+  // si venimos del examen, montamos el panel limpio
+  if (saveId === "__exam__"){
+    panel.innerHTML = `<div class="tema-head"><div class="tema-eyebrow"><span class="ref">EXAMEN</span><span class="pname">Preguntas aleatorias de todo el temario</span></div><h2>${title}</h2></div><div class="tab-body" id="tabBody"></div>`;
+  }
+  renderQuestion();
+  panel.scrollIntoView({ block: "start" });
+}
+function renderQuestion(){
+  const body = document.getElementById("tabBody");
+  const { qs, i } = quiz; const q = qs[i]; quiz.answered = false;
+  const keys = ["A", "B", "C", "D", "E"];
+  let opts = "";
+  q.opciones.forEach((o, k) => { opts += `<button class="opt" data-k="${k}"><span class="key">${keys[k]}</span><span>${o}</span></button>`; });
+  body.innerHTML = `
+    <div class="quiz-top">
+      <div class="qcount">PREGUNTA <b>${i + 1}</b> / ${qs.length}</div>
+      <div class="qcount">ACIERTOS <b>${quiz.correct}</b></div>
+    </div>
+    <div class="progress"><i style="width:${(i / qs.length) * 100}%"></i></div>
+    ${quiz.saveId === "__exam__" ? `<div class="qcount" style="margin-bottom:6px;color:var(--accent)">▸ ${q._tema}</div>` : ""}
+    <div class="qtext">${q.enunciado}</div>
+    <div class="opts">${opts}</div>
+    <div class="explain" id="exp"><span class="lbl"></span><span id="expTxt"></span></div>
+    <div class="quiz-foot" id="foot"></div>`;
+  body.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(parseInt(b.dataset.k), q));
+}
+function answer(k, q){
+  if (quiz.answered) return; quiz.answered = true;
+  const body = document.getElementById("tabBody");
+  const opts = body.querySelectorAll(".opt");
+  const ok = k === q.correcta; if (ok) quiz.correct++;
+  opts.forEach((b, idx) => {
+    b.disabled = true;
+    if (idx === q.correcta) b.classList.add("correct");
+    else if (idx === k) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+  const exp = document.getElementById("exp");
+  exp.className = "explain show " + (ok ? "good" : "bad");
+  exp.querySelector(".lbl").textContent = ok ? "¡Correcto!" : "No exactamente";
+  document.getElementById("expTxt").textContent = q.explicacion;
+  const last = quiz.i === quiz.qs.length - 1;
+  const foot = document.getElementById("foot");
+  foot.innerHTML = `<button class="btn btn-blue" id="next">${last ? "Ver resultado" : "Siguiente pregunta →"}</button>`;
+  document.getElementById("next").onclick = () => { if (last) finishQuiz(); else { quiz.i++; renderQuestion(); } };
+}
+function finishQuiz(){
+  const { correct, qs, saveId, title } = quiz;
+  const pct = Math.round((correct / qs.length) * 100);
+  if (saveId && saveId !== "__exam__"){
+    if (progress[saveId] == null || pct > progress[saveId]){ progress[saveId] = pct; saveProgress(progress); }
+    refreshActive(); updateGlobal();
+  }
+  const body = document.getElementById("tabBody") || panel;
+  const C = 2 * Math.PI * 54; const off = C * (1 - pct / 100);
+  const col = pct >= 80 ? "var(--ok)" : pct >= 50 ? "var(--accent)" : "var(--bad)";
+  let msg;
+  if (pct >= 80) msg = "Dominas este tema. Repásalo solo de pasada antes del examen.";
+  else if (pct >= 50) msg = "Vas bien, pero relee los apuntes y vuelve a intentarlo: lo subes seguro.";
+  else msg = "Toca repasar este tema con calma. Lee los apuntes y repite el test.";
+  const html = `
+   <div class="results">
+     <div class="result-ring">
+       <svg width="128" height="128"><circle cx="64" cy="64" r="54" fill="none" stroke="var(--line-soft)" stroke-width="11"/>
+       <circle cx="64" cy="64" r="54" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg>
+       <div class="pct"><b>${pct}%</b><small>${correct}/${qs.length}</small></div>
+     </div>
+     <h3>${title}</h3>
+     <p class="msg">${msg}</p>
+     <div class="actions">
+       <button class="btn btn-blue" id="retry">Repetir test</button>
+       ${saveId !== "__exam__" ? `<button class="btn btn-line" id="notes">Volver a los apuntes</button>` : `<button class="btn btn-line" id="newexam">Nuevo examen</button>`}
+       <button class="btn btn-line" id="home">Índice</button>
+     </div>
+   </div>`;
+  if (body === panel) panel.innerHTML = `<div class="tab-body">${html}</div>`; else body.innerHTML = html;
+  const r = document.getElementById("retry");
+  r.onclick = () => { if (saveId === "__exam__") startExam(); else startQuiz(current.test, current.id, current.titulo || title); };
+  const n = document.getElementById("notes"); if (n) n.onclick = () => openTema(current, "apuntes");
+  const ne = document.getElementById("newexam"); if (ne) ne.onclick = startExam;
+  document.getElementById("home").onclick = renderHero;
+}
+
+/* ============ init ============ */
+async function init(){
+  // botones del topbar (no dependen de los datos)
+  document.getElementById("examBtn").onclick = startExam;
+  document.getElementById("menuBtn").onclick = () => indexPanel.classList.toggle("open");
+
+  let data;
+  try {
+    data = await loadData();
+  } catch (e) {
+    console.error("[OT] No se pudieron cargar los datos:", e);
+    panel.innerHTML = `<div class="empty" style="padding:48px 24px;text-align:center">
+      <h3 style="margin-bottom:10px">No se han podido cargar los datos</h3>
+      <p>Has abierto <b>index.html</b> directamente y el navegador bloquea <code>fetch()</code> por seguridad (protocolo <b>file://</b>).</p>
+      <p style="margin-top:10px">Tienes dos opciones:</p>
+      <p style="margin-top:6px">• Arranca un servidor local —<b>python3 -m http.server</b>— y abre <b>http://localhost:8000</b></p>
+      <p>• O usa el fichero único <b>dist/oficina-tecnica.html</b> (genéralo con <b>node build.js</b>), que abre con doble clic.</p>
+    </div>`;
+    return;
+  }
+  buildModel(data.temario, data.preguntas);
+  buildIndex();
+  renderHero();
+}
+init();
+
+</script>
+</body>
+</html>

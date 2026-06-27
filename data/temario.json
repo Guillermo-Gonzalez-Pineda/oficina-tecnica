@@ -1,0 +1,893 @@
+{
+  "partes": [
+    {
+      "id": "p1",
+      "tag": "P-I",
+      "titulo": "Gestión y desarrollo de proyectos industriales",
+      "temas": [
+        {
+          "id": "p1t1",
+          "num": "1",
+          "titulo": "Metodología de proyectos",
+          "resumen": "Qué es un proyecto industrial, sus tipos y características, la Oficina Técnica, las fases y la metodología BIM.",
+          "bloques": [
+            {
+              "t": "1.1 · ¿Qué es un proyecto?",
+              "puntos": [
+                {
+                  "termino": "Definición clásica",
+                  "definicion": "conjunto de escritos, cálculos y dibujos que dan idea de cómo ha de ser una obra de ingeniería."
+                },
+                {
+                  "termino": "Cleland y King",
+                  "definicion": "combinación de recursos humanos y no humanos en una organización temporal para un propósito determinado."
+                },
+                "Crea un resultado ÚNICO: tangible (bien) o intangible (servicio). Trabajo único, no repetitivo."
+              ]
+            },
+            {
+              "t": "1.2–1.3 · Proyecto industrial y tipos",
+              "puntos": [
+                {
+                  "termino": "Proyecto industrial",
+                  "definicion": "integra y coordina recursos, con planificación y programación temporal, para implementar industrialmente una idea."
+                },
+                "Tipos: grandes proyectos de inversión · instalaciones y plantas · líneas y procesos de producción · máquinas, equipos y elementos."
+              ]
+            },
+            {
+              "t": "1.4 · Las 3 características",
+              "puntos": [
+                {
+                  "termino": "Complejidad",
+                  "definicion": "muchas temáticas, alta inversión, mucho tiempo."
+                },
+                {
+                  "termino": "Integralidad",
+                  "definicion": "engloba todas las etapas; termina al acabar la vida útil."
+                },
+                {
+                  "termino": "Multidisciplinaridad",
+                  "definicion": "obliga a equipos interdisciplinares."
+                }
+              ]
+            },
+            {
+              "t": "1.5 · Proyecto vs. operación",
+              "puntos": [
+                {
+                  "termino": "Operación",
+                  "definicion": "actividades repetitivas; busca la eficacia organizativa."
+                },
+                {
+                  "termino": "Proyecto",
+                  "definicion": "actividades nuevas (con riesgo) para un resultado único en un tiempo dado."
+                }
+              ]
+            },
+            {
+              "t": "1.6 · Oficina Técnica (OT): tipos por control",
+              "puntos": [
+                {
+                  "termino": "Consultiva",
+                  "definicion": "almacena datos de proyectos anteriores. Control REDUCIDO."
+                },
+                {
+                  "termino": "De control",
+                  "definicion": "soporte a la dirección con exigencias de obligado cumplimiento. Control MEDIO."
+                },
+                {
+                  "termino": "Directiva",
+                  "definicion": "asume todas las funciones de dirección. Control PLENO."
+                },
+                "El Director de Proyecto persigue objetivos concretos; la OT, objetivos generales optimizando recursos compartidos."
+              ]
+            },
+            {
+              "t": "1.7–1.8 · Fases y BIM",
+              "puntos": [
+                "Fases: Inicio (viabilidad) → Planificación → Ejecución → Control → Cierre.",
+                {
+                  "termino": "BIM",
+                  "definicion": "metodología colaborativa que centraliza la documentación en un modelo digital 3D con todos los datos (tiempos, costes…)."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p1t2",
+          "num": "2",
+          "titulo": "Dirección integrada del proyecto",
+          "resumen": "El Director de Proyecto, los objetivos, la oferta, la planificación temporal (Gantt, PERT/CPM) y el cierre.",
+          "bloques": [
+            {
+              "t": "2.1–2.2 · Director y objetivos",
+              "puntos": [
+                "El Director de Proyecto no es solo coordinador: decide, manda y dirige el equipo hacia los objetivos.",
+                {
+                  "termino": "Calidad",
+                  "definicion": "resultado satisfactorio."
+                },
+                {
+                  "termino": "Plazos",
+                  "definicion": "cumplir el límite de plazo."
+                },
+                {
+                  "termino": "Coste",
+                  "definicion": "ajustarse al presupuesto pactado."
+                }
+              ]
+            },
+            {
+              "t": "2.3–2.5 · Viabilidad y oferta",
+              "puntos": [
+                {
+                  "termino": "Estudio de viabilidad",
+                  "definicion": "técnica, económica y financiera; deduce el precio y el margen antes de ofertar."
+                },
+                "La oferta tiene 4 partes: introducción, oferta técnica, de gestión y económica.",
+                "En la introducción, el ALCANCE describe lo que NO forma parte del proyecto.",
+                "Revisión de la oferta (tras la adjudicación): detectar fallos/inconsistencias, comprobar la correspondencia contrato–oferta y verificar que se dispone de los medios y recursos."
+              ]
+            },
+            {
+              "t": "2.6–2.8 · Planificación temporal",
+              "puntos": [
+                {
+                  "termino": "Diagrama de Gantt",
+                  "definicion": "barras a escala con fechas de inicio/fin. Ventaja: muy visual. Inconveniente: NO sirve en proyectos complejos (no ve conexiones cruzadas)."
+                },
+                {
+                  "termino": "Métodos de grafos/redes",
+                  "definicion": "para proyectos complejos: CPM (camino crítico) y PERT (con probabilidad). Otros: ROY, ERT, VERT."
+                },
+                "La duración de una actividad depende de tres factores: su complejidad, el esfuerzo requerido y los recursos utilizados."
+              ]
+            },
+            {
+              "t": "2.9–2.11 · Ejecución, control y cierre",
+              "puntos": [
+                "Decisiones: oportunas, correctas y pertinentes; siempre escritas y firmadas.",
+                "Tipos de control: de calidad, de plazos y de costes.",
+                {
+                  "termino": "Cierre",
+                  "definicion": "el cliente firma el Acta de recepción final; se redacta el Informe de cierre (económico + situación final)."
+                },
+                "El cierre tiene 3 subprocesos: verificación y comprobación (pruebas de funcionamiento), cierre administrativo (firma/aprobación) y cierre del contrato.",
+                "Concluido el proyecto se analizan los resultados: diagnóstico del funcionamiento, balance económico y actuaciones correctivas para el futuro."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p1t3",
+          "num": "3",
+          "titulo": "Documentación técnica para tramitación legal",
+          "resumen": "Anteproyecto, UNE 157001, documentos del proyecto, las fórmulas del presupuesto (PEM/PEC/PAC) y los estudios con entidad propia.",
+          "bloques": [
+            {
+              "t": "3.1 · Anteproyecto y agentes",
+              "puntos": [
+                {
+                  "termino": "Anteproyecto",
+                  "definicion": "primera etapa; objetivos generales, soluciones, planos a gran escala y costes aproximados, sin detalle."
+                },
+                {
+                  "termino": "UNE 157001:2014",
+                  "definicion": "norma que establece los documentos básicos de un proyecto."
+                },
+                {
+                  "termino": "Director Facultativo",
+                  "definicion": "tras firmar el proyecto, dirige la obra y es árbitro entre Promotor (encarga) y Contratista (construye)."
+                }
+              ]
+            },
+            {
+              "t": "3.2 · Documentos del proyecto",
+              "puntos": [
+                "Básicos: Memoria (con Anexos), Pliego de Condiciones, Planos, Mediciones y Presupuesto.",
+                "NO vinculantes: Memoria, Mediciones y Presupuesto. (El Pliego y los Planos SÍ vinculan.)",
+                {
+                  "termino": "Pliego de condiciones",
+                  "definicion": "condiciones, equipos, materiales y forma de ejecutar; debe ser estricto."
+                },
+                {
+                  "termino": "Planos",
+                  "definicion": "documento más utilizado; siguen las normas UNE de dibujo técnico."
+                },
+                "Vinculantes para el CONTRATISTA y, en lo que le corresponda, para el Promotor/Propiedad.",
+                "Si la Memoria no indica el orden de prioridad, el documento de referencia principal son los PLANOS.",
+                "Si hay contradicción entre presupuesto general, mediciones y precios → manda el CUADRO DE PRECIOS UNITARIOS."
+              ]
+            },
+            {
+              "t": "Mediciones y Presupuesto",
+              "puntos": [
+                "Coste de la unidad de obra = costes directos (CD) + costes indirectos (CI).",
+                "PEM (Ejecución Material) = ΣCD + ΣCI.",
+                "PEC (por Contrata) = PEM + CG (costes generales) + Bi (beneficio industrial).",
+                "PAC (precio que abona el cliente) = PEC + IVA."
+              ]
+            },
+            {
+              "t": "3.3 · Estudios con entidad propia",
+              "puntos": [
+                {
+                  "termino": "E. de Seguridad y Salud (RD 1627/1997)",
+                  "definicion": "obligatorio si PEC ≥ 450.000 €, o duración > 30 días con > 20 trabajadores simultáneos, o mano de obra > 500 jornadas, u obras especiales."
+                },
+                {
+                  "termino": "E. de Impacto Ambiental (Ley 21/2013)",
+                  "definicion": "EIA Ordinaria → Declaración de Impacto Ambiental; EIA Simplificada → Informe de Impacto Ambiental."
+                },
+                "El Estudio de Seguridad y Salud NO basta para empezar la obra: cada contratista redacta un Plan de Seguridad y Salud, aprobado por la Dirección Facultativa o el Coordinador de Seguridad.",
+                {
+                  "termino": "Coordinador de seguridad y salud (ejecución)",
+                  "definicion": "lo designa el Promotor/Propiedad; denominación completa: «Coordinador en materia de seguridad y salud durante la ejecución del proyecto»; se integra en la Dirección Facultativa."
+                },
+                "El Estudio de Impacto Ambiental lo exigen los Ayuntamientos (que lo trasladan a las Agencias de Medio Ambiente)."
+              ]
+            }
+          ],
+          "formulas": [
+            "Coste Ud. de obra = CD + CI",
+            "PEM = ΣCD + ΣCI",
+            "PEC = PEM + CG + Bi",
+            "PAC = PEC + IVA"
+          ]
+        },
+        {
+          "id": "p1t4",
+          "num": "4",
+          "titulo": "Legislación y tramitación legal",
+          "resumen": "Atribuciones profesionales, tipos de licencias, colegios y visado, ayuntamientos y registros industriales.",
+          "bloques": [
+            {
+              "t": "4.2 · Atribuciones profesionales",
+              "puntos": [
+                {
+                  "termino": "Ley 12/1986 y Ley 33/1992",
+                  "definicion": "Arquitectos e Ingenieros Técnicos tienen plenas facultades en su especialidad: redactar y firmar proyectos, dirigir, mediciones, tasaciones, docencia…"
+                }
+              ]
+            },
+            {
+              "t": "4.3 · Tipos de licencias",
+              "puntos": [
+                "De la Comunidad Autónoma (Dir. Gral. de Industria): Registro Industrial y Registro de Actividades de Seguridad Industrial.",
+                "Municipales (Ayuntamiento): licencias de obra y de legalización de actividades (apertura). En Madrid se unifican en la Licencia Urbanística."
+              ]
+            },
+            {
+              "t": "4.4 · Colegios y visado",
+              "puntos": [
+                {
+                  "termino": "Visado",
+                  "definicion": "comprueba la identidad/habilitación del autor y la corrección formal de la documentación; el Colegio es responsable subsidiario de los daños."
+                },
+                {
+                  "termino": "RD 1000/2012",
+                  "definicion": "el visado es obligatorio solo en ciertos proyectos: edificación, demoliciones, voladuras, explosivos, pirotecnia, minería…"
+                },
+                "Fines esenciales de los Colegios (Ley 2/1974): ordenación del ejercicio, representación institucional, defensa de los colegiados y protección de consumidores/usuarios (además de evitar el intrusismo)."
+              ]
+            },
+            {
+              "t": "4.5–4.8 · Ayuntamientos y licencias",
+              "puntos": [
+                "Normativa municipal: Plan de Ordenación Urbana y Ordenanzas Municipales.",
+                {
+                  "termino": "RD-Ley 19/2012",
+                  "definicion": "sustituye la licencia municipal previa por una Declaración Responsable (con inspección posterior)."
+                },
+                "Actividades (Madrid): Inocuas vs. Calificadas (molestas, insalubres, nocivas, peligrosas).",
+                "Primera ocupación: la obra coincide con la licencia de obra. Funcionamiento: equipos/montajes cumplen la licencia de actividad."
+              ]
+            },
+            {
+              "t": "4.9 · Registros industriales",
+              "puntos": [
+                {
+                  "termino": "EICI / OCA",
+                  "definicion": "entidades privadas que revisan el proyecto e inspeccionan la instalación para su registro."
+                }
+              ]
+            },
+            {
+              "t": "4.10 · Legislación industrial — cinco grandes grupos",
+              "puntos": [
+                "Seguridad e higiene.",
+                "Medio ambiente.",
+                "Infraestructura y edificación.",
+                "Instalaciones mecánicas.",
+                "Instalaciones eléctricas."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "tag": "P-II",
+      "titulo": "Proyectos de diseño y fabricación industrial",
+      "temas": [
+        {
+          "id": "p2t1",
+          "num": "1",
+          "titulo": "Diseño y desarrollo de productos",
+          "resumen": "Investigación de mercado, QFD, previsión de la demanda, el proceso de diseño, el DFM y la ingeniería concurrente.",
+          "bloques": [
+            {
+              "t": "1.1 · Investigación de mercado",
+              "puntos": [
+                "Usa métodos estadísticos para deducir las necesidades del consumidor y analizar el potencial de mercado antes de lanzar.",
+                "Fases: situación actual → planificar investigación → reunir datos → análisis → informe."
+              ]
+            },
+            {
+              "t": "1.2 · QFD (Despliegue funcional de la calidad)",
+              "puntos": [
+                {
+                  "termino": "QFD",
+                  "definicion": "convierte las necesidades del cliente (QUEs) en especificaciones técnicas (COMOs)."
+                },
+                "Se plasma en la Casa de la Calidad, que además compara con la competencia."
+              ]
+            },
+            {
+              "t": "1.3 · Previsión de la demanda",
+              "puntos": [
+                {
+                  "termino": "Cualitativas",
+                  "definicion": "basadas en experiencia e intuición."
+                },
+                {
+                  "termino": "Cuantitativas",
+                  "definicion": "proyección matemática: promedio móvil, promedio móvil ponderado, alisamiento exponencial, ajuste por mínimos cuadrados."
+                },
+                "Error de previsión: e = F − D (F pronosticada, D real).",
+                "El alisamiento exponencial da más peso a lo reciente; ideal a corto plazo (responde a la tendencia, no al ruido).",
+                "Medidas del error (n periodos): Error Promedio EP = Σe/n; Error Absoluto Promedio EAP = Σ|e|/n; Error Cuadrático Promedio ECP = Σe²/n; Desviación típica DTE = √(Σe²/(n−1)).",
+                "Se elige la constante de alisamiento α que da MENOR error absoluto promedio (EAP)."
+              ]
+            },
+            {
+              "t": "1.4–1.5 · Diseño y DFM",
+              "puntos": [
+                "Fases del diseño: preliminar → detalle → análisis y selección → prototipos.",
+                {
+                  "termino": "DFM (Design for Manufacturing)",
+                  "definicion": "adapta el producto a la fabricación: menos piezas, normalizadas, tolerancias amplias, pieza base inferior."
+                },
+                {
+                  "termino": "Síndrome del muro",
+                  "definicion": "falta de comunicación entre diseño y fabricación; se resuelve con trabajo interdisciplinar."
+                },
+                {
+                  "termino": "Ingeniería concurrente",
+                  "definicion": "todos los implicados trabajan SIMULTÁNEAMENTE → menor time-to-market; apoyo CAD-CAM."
+                }
+              ]
+            }
+          ],
+          "formulas": [
+            "Error de previsión: e = F − D",
+            "Alisamiento exponencial: F(t+1) = F(t) + α·(D(t) − F(t))",
+            "EAP = Σ|e| / n   ·   ECP = Σe² / n   ·   DTE = √(Σe²/(n−1))"
+          ]
+        },
+        {
+          "id": "p2t2",
+          "num": "2",
+          "titulo": "Elección de la tecnología del proceso",
+          "resumen": "Tipos de fabricación, células por tecnología de grupos y el equilibrado de cadenas de montaje.",
+          "bloques": [
+            {
+              "t": "2.1 · Tipos de fabricación",
+              "puntos": [
+                {
+                  "termino": "Taller (job-shop)",
+                  "definicion": "mucha variedad, poco volumen; máquinas generales por funciones; MO cualificada; costes fijos BAJOS y variables ALTOS; baja productividad."
+                },
+                {
+                  "termino": "Serie",
+                  "definicion": "gran volumen, poca variedad; puestos en secuencia; costes fijos ALTOS y variables BAJOS; alta productividad. Continua (papel) o línea de montaje (coches)."
+                },
+                {
+                  "termino": "Por lotes",
+                  "definicion": "intermedio; variedad con demanda estable; se reconfigura por artículo. Más productivo que el taller."
+                },
+                {
+                  "termino": "Flexible (células)",
+                  "definicion": "piezas en familias; máquinas en células en U; un operario atiende varias máquinas."
+                }
+              ]
+            },
+            {
+              "t": "2.2 · Células por tecnología de grupos",
+              "puntos": [
+                "Agrupa piezas similares en familias y máquinas en células (cambios mínimos de configuración).",
+                {
+                  "termino": "p (% de efectividad)",
+                  "definicion": "umbral para unir una máquina a un grupo (típico 0,5). p alto → muchos grupos pequeños (más restrictivo); p bajo → pocos grupos grandes."
+                },
+                "Pasos: matriz de incidencia → relaciones máquina-máquina → ordenarlas → formar grupos comparando MRC con MTV."
+              ]
+            },
+            {
+              "t": "2.4 · Equilibrado de cadenas",
+              "puntos": [
+                "Objetivo: igualar el tiempo de las estaciones obteniendo la producción deseada.",
+                "Tiempo de ciclo máximo: Tcm = Tdd / Pd.",
+                "Nº mínimo teórico de estaciones = Σ tiempos de tareas / Tcm.",
+                "Saturación de una estación: Si = (tesi / tc) × 100.",
+                "Equilibrado en cadena de FABRICACIÓN: con cambios mecánicos y de ingeniería. En cadena de MONTAJE: modificando la asignación de tareas.",
+                "Método heurístico habitual: el de la «tarea de mayor tiempo» (se asignan primero las tareas más largas que sean viables)."
+              ]
+            }
+          ],
+          "formulas": [
+            "Tcm = Tdd / Pd",
+            "Nº mín. estaciones = Σti / Tcm",
+            "Eficacia = Σti / (Nef · Tc)",
+            "Si = (tesi / tc) · 100"
+          ]
+        },
+        {
+          "id": "p2t3",
+          "num": "3",
+          "titulo": "Proyecto de distribución en planta",
+          "resumen": "Objetivos de la distribución en planta, enfoques y el método cualitativo de la red nodal.",
+          "bloques": [
+            {
+              "t": "3.1 · Objetivos",
+              "puntos": [
+                {
+                  "termino": "Distribución en planta (DP)",
+                  "definicion": "disposición física de equipos e instalaciones; de naturaleza dinámica (se adapta con el tiempo)."
+                },
+                "Objetivos: integración de factores · distancias mínimas · flexibilidad · uso efectivo del espacio (3D) · seguridad del personal."
+              ]
+            },
+            {
+              "t": "3.2 · Enfoques",
+              "puntos": [
+                "Instinto/intuición · distribuciones existentes · flujo de materiales · métodos cualitativos.",
+                "El método del flujo de materiales es típico en industrias de proceso."
+              ]
+            },
+            {
+              "t": "3.3 · Método cualitativo: red nodal",
+              "puntos": [
+                "Pasos: área de cada departamento → tabla de relaciones (importancia de cercanía) → red nodal → tabla de evaluación.",
+                {
+                  "termino": "Red nodal",
+                  "definicion": "se colocan los nodos con el mínimo de líneas cruzadas; el de mayor valor va al centro."
+                },
+                "Medida de cercanía = distancia rectilínea (bloques) × valor de la relación. La mejor red es la de MENOR valor total."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "tag": "P-III",
+      "titulo": "Proyectos para mejorar la producción industrial",
+      "temas": [
+        {
+          "id": "p3t1",
+          "num": "1",
+          "titulo": "Gestión y control de la calidad industrial",
+          "resumen": "Costes de la calidad, normas ISO, la Gestión de Calidad Total (PDCA, Seis Sigma, JIT, Taguchi) y sus herramientas.",
+          "bloques": [
+            {
+              "t": "1.2 · Costes de la calidad",
+              "puntos": [
+                {
+                  "termino": "Prevención",
+                  "definicion": "reducir defectos antes de producir."
+                },
+                {
+                  "termino": "Evaluación/tasación",
+                  "definicion": "verificar productos y procesos."
+                },
+                {
+                  "termino": "Fallos internos",
+                  "definicion": "defectos detectados antes de vender (reproceso, desecho)."
+                },
+                {
+                  "termino": "Fallos externos",
+                  "definicion": "defectos que llegan al cliente (devoluciones, pérdida de clientes)."
+                },
+                "Crosby: lo que cuesta dinero es la NO calidad (no hacerlo bien a la primera)."
+              ]
+            },
+            {
+              "t": "1.3 · Normas ISO",
+              "puntos": [
+                {
+                  "termino": "ISO 9000",
+                  "definicion": "familia de estándares de gestión de la calidad."
+                },
+                {
+                  "termino": "UNE-EN ISO 9001:2015",
+                  "definicion": "promueve el enfoque basado en procesos (EBP) para aumentar la satisfacción del cliente."
+                },
+                {
+                  "termino": "ISO 14000",
+                  "definicion": "gestión medioambiental."
+                },
+                "La calidad no está en la documentación, sino en ejecutar bien los procedimientos."
+              ]
+            },
+            {
+              "t": "1.4 · Gestión de Calidad Total",
+              "puntos": [
+                {
+                  "termino": "PDCA (Deming)",
+                  "definicion": "Plan – Do – Check – Act; ciclo de mejora continua."
+                },
+                "El 85% de los problemas de calidad nacen del PROCESO, no del empleado → potenciar empleados (círculos de calidad).",
+                {
+                  "termino": "Seis Sigma",
+                  "definicion": "reduce defectos en 5 fases: Definir, Medir, Analizar, Mejorar, Controlar."
+                },
+                {
+                  "termino": "Benchmarking",
+                  "definicion": "tomar como referencia un estándar probado en otras empresas."
+                },
+                {
+                  "termino": "JIT (justo a tiempo)",
+                  "definicion": "producir en el momento justo; reduce inventario y costes de calidad."
+                },
+                {
+                  "termino": "Taguchi",
+                  "definicion": "diseños robustos; Función de Pérdida de Calidad (QLF): menor pérdida = mayor calidad."
+                },
+                "Función de Pérdida de Calidad (QLF, Taguchi): L = K·(x − µ)² (≡ P = C·D²). La pérdida crece con el CUADRADO de la desviación; menor pérdida = mayor calidad."
+              ]
+            },
+            {
+              "t": "1.5–1.6 · Herramientas e inspección",
+              "puntos": [
+                "Herramientas: hojas de control · dispersión · Ishikawa (causa-efecto) · Pareto · diagramas de flujo · histogramas · CEP.",
+                {
+                  "termino": "Pareto",
+                  "definicion": "el 20% de las causas produce el 80% de los defectos."
+                },
+                "La mejor inspección es la que no hace falta → inspección en la fuente (poka-yoke). La inspección detecta defectos pero no los arregla."
+              ]
+            }
+          ],
+          "formulas": [
+            "Pérdida de calidad (Taguchi): L = K·(x − µ)²   (P = C·D²)"
+          ]
+        },
+        {
+          "id": "p3t2",
+          "num": "2",
+          "titulo": "Análisis y mejora de procesos de trabajo",
+          "resumen": "Símbolos y tipos de diagramas de proceso, mejora de métodos y la fabricación eficiente (Lean, 5S).",
+          "bloques": [
+            {
+              "t": "2.2 · Símbolos de los diagramas",
+              "puntos": [
+                {
+                  "termino": "Operación ●",
+                  "definicion": "cambia las características del material (incluye montaje)."
+                },
+                {
+                  "termino": "Inspección ■",
+                  "definicion": "verifica características del producto."
+                },
+                {
+                  "termino": "Transporte →",
+                  "definicion": "traslado con medios; no cuenta si es < 1 m o dentro del puesto."
+                },
+                {
+                  "termino": "Espera D",
+                  "definicion": "interrupción del proceso (programada o no programada)."
+                },
+                {
+                  "termino": "Almacenamiento ▽",
+                  "definicion": "estancia controlada en almacén cerrado."
+                }
+              ]
+            },
+            {
+              "t": "Tipos de diagramas",
+              "puntos": [
+                {
+                  "termino": "Sinóptico",
+                  "definicion": "solo operación e inspección (las que aportan valor)."
+                },
+                {
+                  "termino": "Analítico",
+                  "definicion": "todas las actividades con detalle."
+                },
+                {
+                  "termino": "Bimanual",
+                  "definicion": "actividad de ambas manos de un operario."
+                },
+                {
+                  "termino": "Hombre-máquina",
+                  "definicion": "actividad del operario y de la máquina durante el ciclo."
+                }
+              ]
+            },
+            {
+              "t": "2.6 · Mejora de métodos",
+              "puntos": [
+                "Se prioriza con Pareto (recursos limitados) y actitud interrogativa con cuestionarios.",
+                "Ahorro = Economía prevista (MOD+MAT) − cpimp. Interesa el nuevo método si el ahorro es POSITIVO."
+              ]
+            },
+            {
+              "t": "2.7 · Fabricación eficiente (Lean)",
+              "puntos": [
+                "Nace del Justo a Tiempo; elimina desperdicios (mudas) y lo que no aporta valor.",
+                {
+                  "termino": "5S",
+                  "definicion": "Seiri (eliminar), Seiton (ordenar), Seiso (limpiar), Seiketsu (normalizar), Shitsuke (disciplina)."
+                },
+                "Sistema pull (según demanda, Kanban) frente a push. Otras: 5 porqués, TPM, Kaizen, VSM, SMED (< 10 min), poka-yoke."
+              ]
+            }
+          ],
+          "formulas": [
+            "Ahorro = Economía prevista (MOD + MAT) − cpimp"
+          ]
+        },
+        {
+          "id": "p3t3",
+          "num": "3",
+          "titulo": "Medición de tiempos de trabajo",
+          "resumen": "Métodos de medición, etapas del cronometraje, ritmo del operario, tiempo básico, suplementos y tiempo concedido.",
+          "bloques": [
+            {
+              "t": "3.1–3.2 · Concepto y métodos",
+              "puntos": [
+                {
+                  "termino": "OIT",
+                  "definicion": "define la medición del trabajo como las técnicas para fijar el tiempo de un trabajador calificado en una tarea definida."
+                },
+                {
+                  "termino": "Métodos directos",
+                  "definicion": "se mide en el momento: cronometraje (medición continua) y muestreo de trabajo (observación discontinua)."
+                },
+                {
+                  "termino": "Métodos indirectos",
+                  "definicion": "sin observar: tiempos predeterminados (tablas) y estimaciones por experiencia."
+                }
+              ]
+            },
+            {
+              "t": "3.4–3.6 · Cronometraje y tiempo básico",
+              "puntos": [
+                "Etapas: información → dividir en elementos → nº de observaciones → medir → valorar ritmo → tiempos básicos → suplementos → tiempo concedido.",
+                {
+                  "termino": "Factor de actuación (CA)",
+                  "definicion": "CA = ritmo observado / ritmo tipo (A/An o A/Ar)."
+                },
+                {
+                  "termino": "Tiempo básico",
+                  "definicion": "el que necesita un trabajador calificado a un ritmo dado (normal o tipo)."
+                },
+                "Escalas de ritmo habituales: 100-133, 60-80 y 75-100."
+              ]
+            },
+            {
+              "t": "3.7–3.8 · Suplementos y tiempo concedido",
+              "puntos": [
+                "Suplementos: por descanso (necesidades personales + fatiga) y por contingencias.",
+                {
+                  "termino": "Fatiga de 1er grado",
+                  "definicion": "desaparece con el reposo habitual."
+                },
+                {
+                  "termino": "Fatiga de 2º grado",
+                  "definicion": "cansancio acumulado; el descanso programado debe evitarla."
+                },
+                "Tiempo concedido = tiempo básico × (1 + x% + y%), con x% (descanso) e y% (contingencias)."
+              ]
+            }
+          ],
+          "formulas": [
+            "CA = ritmo observado / ritmo tipo",
+            "Tiempo concedido = Tiempo básico · (1 + x% + y%)"
+          ]
+        },
+        {
+          "id": "p3t4",
+          "num": "4",
+          "titulo": "Procesos con máquinas y mano de obra",
+          "resumen": "Selección y coste de máquinas, capacidad productiva, mano de obra y los sistemas hombre-máquina.",
+          "bloques": [
+            {
+              "t": "4.1 · Coste de las máquinas",
+              "puntos": [
+                {
+                  "termino": "Coste de interés",
+                  "definicion": "Ci = A · i (A = inversión, i = interés)."
+                },
+                {
+                  "termino": "Coste de amortización",
+                  "definicion": "Ca = A / p (p = periodo de amortización)."
+                },
+                "Costes fijos (inversión) + variables (operación: MOD, energía…). Depreciación lineal hasta el valor residual Ar.",
+                "Si una máquina sirve a varios procesos, se reparte su coste proporcional al tiempo de uso."
+              ]
+            },
+            {
+              "t": "4.2 · Capacidad productiva",
+              "puntos": [
+                "Reducen la capacidad teórica: paradas de la máquina, factores del operario, interferencia entre máquinas y pérdidas por calidad.",
+                {
+                  "termino": "Coeficiente de contracción",
+                  "definicion": "recoge la interferencia que la parada de una máquina causa en otras que atiende el mismo operario."
+                },
+                {
+                  "termino": "Tolerancia de contracción (Tc)",
+                  "definicion": "fracción de unidades defectuosas por unidad producida; la producción real diaria es Prd = Pd/(1 − Tc)."
+                },
+                "En líneas con varias máquinas se aplica la contracción en cada fase para conocer las unidades que deben procesarse en origen."
+              ]
+            },
+            {
+              "t": "4.4 · Mano de obra",
+              "puntos": [
+                {
+                  "termino": "MO directa",
+                  "definicion": "interviene directamente en la producción."
+                },
+                {
+                  "termino": "MO indirecta",
+                  "definicion": "servicios de apoyo al personal directo."
+                },
+                "Cada puesto se evalúa por puntos (habilidad, esfuerzo, responsabilidad…) → referencia para el salario."
+              ]
+            },
+            {
+              "t": "4.5 · Sistemas hombre-máquina",
+              "puntos": [
+                {
+                  "termino": "Tiempo exterior (te)",
+                  "definicion": "atención con la máquina PARADA."
+                },
+                {
+                  "termino": "Tiempo interior (ti)",
+                  "definicion": "atención con la máquina FUNCIONANDO."
+                },
+                "Diagramas: 1H-1M (reducir tiempos exteriores), 2H-1M (cuando el operario > máquina), 1H-2M (cuando la máquina >> operario).",
+                "Saturaciones: Sm = tm/tc·100 (máquina), Se = te/tc·100 (exterior), Si = ti/tc·100 (interior), So = (te+ti)/tc·100 (operario).",
+                "Rendimiento del sistema: η = (Pc/h)/(Pm/h) = tm/tc · 100."
+              ]
+            }
+          ],
+          "formulas": [
+            "Coste de interés: Ci = A · i",
+            "Coste de amortización: Ca = A / p",
+            "Saturaciones: Sm=tm/tc·100 · Se=te/tc·100 · Si=ti/tc·100 · So=(te+ti)/tc·100",
+            "Rendimiento 1H-1M: η = tm/tc · 100",
+            "Producción real: Prd = Pd / (1 − Tc)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "tag": "P-IV",
+      "titulo": "Proyectos de fabricación por lotes",
+      "temas": [
+        {
+          "id": "p4t1",
+          "num": "1",
+          "titulo": "Coste de fabricación y presupuesto industrial",
+          "resumen": "Las fórmulas maestras del coste, los costes directos, indirectos y generales, y el presupuesto industrial.",
+          "bloques": [
+            {
+              "t": "Fórmulas maestras",
+              "puntos": [
+                "Cf = CD + CI + GG (coste de fábrica = directos + indirectos + generales).",
+                "CD = MOD + MAT + PT (mano de obra directa + materiales + puesto de trabajo)."
+              ]
+            },
+            {
+              "t": "1.2 · Costes directos",
+              "puntos": [
+                {
+                  "termino": "MOD",
+                  "definicion": "mano de obra que interviene directamente (coste/hora por centro de coste)."
+                },
+                {
+                  "termino": "MAT",
+                  "definicion": "materiales del producto; salen del almacén; cantidades brutas (descontando residuos reutilizables)."
+                },
+                {
+                  "termino": "PT (puesto/máquina)",
+                  "definicion": "fijos (amortización, intereses) + variables (energía, mantenimiento)."
+                }
+              ]
+            },
+            {
+              "t": "1.3 · Costes indirectos",
+              "puntos": [
+                "No admiten asignación directa: materiales indirectos, MO indirecta, equipos indirectos y departamentos de servicio.",
+                "Método simplificado habitual: asignarlos proporcionalmente a los costes directos. Alternativa: por actividades (conductores de coste)."
+              ]
+            },
+            {
+              "t": "1.4–1.5 · Generales y presupuesto",
+              "puntos": [
+                {
+                  "termino": "Costes Generales (GG)",
+                  "definicion": "administración, I+D, ventas, edificio, instalaciones de uso general…"
+                },
+                "El presupuesto industrial fija el precio de venta unitario con el beneficio deseado: Cf = CD+CI+GG → Valor de venta → Precio unitario.",
+                "Valor de venta: Vv = Cf + Bi = Cf·(1+x) si el beneficio x se da como % sobre el coste de fábrica; o Vv = Cf/(1−y) si y es % sobre el valor de venta.",
+                "Precio de venta unitario: pvu = Vv / P (P = unidades del pedido)."
+              ]
+            }
+          ],
+          "formulas": [
+            "Cf = CD + CI + GG",
+            "CD = MOD + MAT + PT",
+            "Vv = Cf·(1 + x)   (x = beneficio sobre el coste de fábrica)",
+            "Vv = Cf/(1 − y)   (y = beneficio sobre el valor de venta)",
+            "pvu = Vv / P"
+          ]
+        },
+        {
+          "id": "p4t2",
+          "num": "2",
+          "titulo": "Planificación y programación del trabajo",
+          "resumen": "El procedimiento de planificación por lotes, los formatos (hoja de ruta), el Gantt y el cálculo del número de puestos iguales.",
+          "bloques": [
+            {
+              "t": "2.1 · Procedimiento (lotes / bajo pedido)",
+              "puntos": [
+                "Orden de trabajo → descomposición analítica → análisis de fabricación/montaje → coste → programación → lanzamiento → control."
+              ]
+            },
+            {
+              "t": "2.2 · Formatos (3 zonas)",
+              "puntos": [
+                "Encabezamiento (identificación) · parte central (tabla) · pie (control documental de calidad).",
+                {
+                  "termino": "Hoja de Ruta",
+                  "definicion": "fases de trabajo y materiales necesarios. Tf = ts + tcd · P."
+                },
+                "Otras: descomposición analítica, hoja de instrucciones, hoja de mediciones, hoja del coste directo."
+              ]
+            },
+            {
+              "t": "2.3 · Programación (Gantt)",
+              "puntos": [
+                "Arriba: escala de tiempos (fechas laborales). Izquierda: fases y puestos. Cargas equilibradas, sin inactividad."
+              ]
+            },
+            {
+              "t": "2.4–2.5 · Número de puestos iguales",
+              "puntos": [
+                "h/pp = dn · h/jl (horas laborables del periodo por máquina).",
+                "n = Tf / (h/pp) (número de puestos iguales).",
+                "Se satura al 100% a (n−1) puestos y el último (n) lleva el periodo incompleto: hn = Tf − [(n−1)·(h/pp)].",
+                "Los tiempos serie (ts) se consideran despreciables (nulos) frente al Tf del pedido."
+              ]
+            }
+          ],
+          "formulas": [
+            "Tf = ts + tcd · P",
+            "h/pp = dn · h/jl",
+            "n = Tf / (h/pp)",
+            "hn = Tf − [(n−1) · (h/pp)]"
+          ]
+        }
+      ]
+    }
+  ]
+}

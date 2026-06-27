@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oficina Técnica — Apuntes y Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-grid"></div>
+  <div class="topbar-in">
+    <button class="btn btn-ghost menu-toggle" id="menuBtn" aria-label="Índice">☰</button>
+    <div class="brand">
+      <span class="tag">OT</span>
+      <div>
+        <h1>Oficina Técnica</h1>
+        <div class="sub">APUNTES · TEST · EXAMEN</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="scorepill">PROGRESO <b id="globalDone">0</b>/<b id="globalTotal">0</b> temas</div>
+    <button class="btn btn-accent" id="examBtn">Examen completo</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <aside class="index" id="indexPanel">
+    <div class="index-card">
+      <div class="index-head">
+        <div class="eyebrow">ÍNDICE DEL TEMARIO</div>
+        <h2>4 partes · 13 temas</h2>
+      </div>
+      <div id="indexList"></div>
+    </div>
+  </aside>
+
+  <main class="panel" id="panel"><!-- renderizado por JS --></main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
